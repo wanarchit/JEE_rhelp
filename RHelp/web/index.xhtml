@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h:head>
+        <title>Les employés</title>
+    </h:head>
+    <h:body>
+        <center><h1><font color = "blue"><u>Gestion des employés</u></font></h1></center>
+        <h:form id="form">
+            <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"
+                         var="e" rowKey="#{e.numSS}" >
+                <p:ajax event="rowSelect" update="formUp:diagUpdate"/>
+                <f:facet name="header">
+                    Liste des employés
+                </f:facet>
+                <p:column headerText="Numéro sécurité social">
+                    <h:outputText value="#{e.numSS}" />
+                </p:column>
+                <p:column headerText="Prénom">
+                    <B><h:outputText value="#{e.prenom}" /></B>
+                </p:column>
+                <p:column headerText="Nom">
+                    <B><h:outputText value="#{e.nom}" /></B>
+                </p:column>
+                <p:column headerText="Adresse">
+                    <h:outputText value="#{e.adresse}" />
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton id="boutonSuppr" action="#{employeControler.removeEmp(employeControler.selectedEmp.numSS)}" 
+                                 icon="ui-icon-close" value="Supprimer" ajax="false"/>
+                    <p:commandButton id="boutonUpdate" icon="ui-icon-pencil" value="Modifier" ajax="true" 
+                                         onclick="PF('diagUpdate').show();"/>
+                    Total : #{fn:length(employeControler.employes)} employé(s)
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+        
+        <h:form id="formUp">
+            <p:dialog id="diagUpdate" header="Mettre à jour un employé" modal="true" widgetVar="diagUpdate" resizable="false">
+                <h:panelGrid columns="2" cellpadding="5">   
+                    <h:outputLabel value="Prénom" />
+                    <p:inputText value="#{employeControler.selectedEmp.prenom}"/>
+                    <h:outputLabel value="Nom" />
+                    <p:inputText value="#{employeControler.selectedEmp.nom}"/>
+                    <h:outputLabel value="Adresse" />
+                    <p:inputText value="#{employeControler.selectedEmp.adresse}"/>
+                    <f:facet name="footer">
+                        <p:commandButton icon="ui-icon-circle-check" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
+                                         ajax="false"/>
+                    </f:facet>  
+                </h:panelGrid>
+           </p:dialog>
+        </h:form>
+        
+        <br/>
+        
+        
+        <h:form id="formAdd">
+            <p:accordionPanel>
+                <p:tab title="Ajouter un employé">
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <p:messages autoUpdate="true"/>
+                        <h:outputLabel for="numSS" value="Numéro SS :" style="font-weight:bold"/>
+                        <p:inputMask id="numSS" value = "#{employes.numSS}" required="true" label="Numéro SS" mask="9 99 99 99 999 999 99"/>
+                        <p:message for="numSS"/>                
+                        <p:outputLabel for="prenom" value="Prénom :" /><p:inputText id="prenom" value = "#{employes.prenom}"/>
+                        <p:message for="prenom"/>  
+                        <p:outputLabel for="nom" value="Nom :" /><p:inputText id="nom" value = "#{employes.nom}"/>
+                        <p:message for="nom"/>  
+                        <p:outputLabel for="adr" value="Adresse :" /><p:inputText id="adr" value = "#{employes.adresse}"/>
+                        <p:message for="adr"/>  
+                        <f:facet name="footer">
+                            <p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{employeControler.addEmp(employes)}"/>
+                        </f:facet>
+                    </h:panelGrid>
+                </p:tab>
+            </p:accordionPanel>
+        </h:form>
+    </h:body>
+</html>
+
