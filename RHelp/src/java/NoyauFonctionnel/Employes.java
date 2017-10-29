@@ -6,6 +6,7 @@
 package NoyauFonctionnel;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Basic;
@@ -32,7 +33,11 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "Employes.findByNumSS", query = "SELECT e FROM Employes e WHERE e.numSS = :numSS")
     , @NamedQuery(name = "Employes.findByNom", query = "SELECT e FROM Employes e WHERE e.nom = :nom")
     , @NamedQuery(name = "Employes.findByPrenom", query = "SELECT e FROM Employes e WHERE e.prenom = :prenom")
-    , @NamedQuery(name = "Employes.findByAdresse", query = "SELECT e FROM Employes e WHERE e.adresse = :adresse")})
+    , @NamedQuery(name = "Employes.findByAdresse", query = "SELECT e FROM Employes e WHERE e.adresse = :adresse")
+    , @NamedQuery(name = "Employes.findByDateNaissance", query = "SELECT e FROM Employes e WHERE e.dateNaissance = :dateNaissance")
+    , @NamedQuery(name = "Employes.findBySexe", query = "SELECT e FROM Employes e WHERE e.sexe = :sexe")
+    , @NamedQuery(name = "Employes.findByMail", query = "SELECT e FROM Employes e WHERE e.mail = :mail")})
+
 public class Employes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +67,15 @@ public class Employes implements Serializable {
     @Column(name = "dateNaissance")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "sexe")
+    private boolean sexe;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "mail")
+    private String mail;
 
     public Employes() {
     }
@@ -108,6 +122,44 @@ public class Employes implements Serializable {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
+    
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+    
+    public String displayDate(Date dateNaissance){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateDisplaying = formatter.format(dateNaissance);
+        return dateDisplaying;
+    }
+    
+    public boolean getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(boolean sexe) {
+        this.sexe = sexe;
+    }
+    
+    public String displaySexe(Boolean sexe){
+        if(sexe){
+            return "Homme";
+        }else{
+            return "Femme";
+        }
+    }
+    
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
     @Override
     public int hashCode() {
@@ -134,12 +186,7 @@ public class Employes implements Serializable {
         return "NoyauFonctionnel.Employes[ numSS=" + numSS + " ]";
     }
 
-    public Date getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(Date dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
+    
+    
     
 }

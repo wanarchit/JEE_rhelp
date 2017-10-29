@@ -33,11 +33,6 @@ public class employeControler implements Serializable{
     }
     
     public void addEmp(Employes emp){
-        System.out.println("ADD EMP");
-        System.out.println("numSS = "+emp.getNumSS());
-        System.out.println("nom = "+emp.getNom());
-        System.out.println("prenom = "+emp.getPrenom());
-        System.out.println("ddn = "+emp.getAdresse());
         dao.saveEmploye(emp);
     }
     

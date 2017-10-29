@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h:head>
+        <title>Les véhicules</title>
+    </h:head>
+    <h:body>
+        <center><h1><font color = "blue"><u>Gestion des véhicules</u></font></h1></center>
+        <p:link outcome="index" value="Accueil"/>
+        <p:spacer width="100" height="10" />
+        <p:link outcome="employes" value="Gestion des employés"/>
+        <p:spacer width="100" height="10" />
+        <p:link outcome="voitures" value="Gestion des véhicules"/>
+        <br/><br/>
+        <h:form id="form">
+            <p:dataTable value="#{voitureControler.voitures}" selectionMode="single" selection="#{voitureControler.selectedVoi}"
+                         var="voi" rowKey="#{voi.plaque}" >
+                <!--<p:ajax event="rowSelect" update="formUp:diagUpdate"/> -->
+                <f:facet name="header">
+                    Liste des véhicules
+                </f:facet>
+                <p:column headerText="Plaque">
+                    <h:outputText value="#{voi.plaque}" />
+                </p:column>
+                <p:column headerText="Marque">
+                    <B><h:outputText value="#{voi.marque}" /></B>
+                </p:column>
+                <p:column headerText="Modèle">
+                    <B><h:outputText value="#{voi.modele}" /></B>
+                </p:column>
+                <p:column headerText="Kilométrage">
+                    <h:outputText value="#{voi.kilometrage}" />
+                </p:column>
+                <p:column headerText="Disponible">
+                    <h:outputText value="#{voi.displayDispo(voi.disponibilite)}" />
+                </p:column>
+                <p:column headerText="Date révision">
+                    <h:outputText value="#{voi.displayDate(voi.dateRevision)}" />
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton id="boutonSuppr" action="#{voitureControler.removeVoi(voitureControler.selectedVoi.plaque)}" 
+                                 icon="ui-icon-close" value="Supprimer" ajax="false"/>
+                    Total : #{fn:length(voitureControler.voitures)} voiture(s)
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+
+<!--<p:commandButton id="boutonUpdate" icon="ui-icon-pencil" value="Modifier" ajax="true" 
+                                         onclick="PF('diagUpdate').show();"/>-->
