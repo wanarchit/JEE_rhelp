@@ -8,13 +8,16 @@ package NoyauFonctionnel;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,6 +43,9 @@ import javax.validation.constraints.Size;
 
 public class Employes implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numSS")
+    private List<Reservations> reservationsList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -63,12 +69,12 @@ public class Employes implements Serializable {
     @Column(name = "adresse")
     private String adresse;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Vous devez renseigner la date de naissance")
     @Column(name = "dateNaissance")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "Vous devez renseigner le sexe")
     @Column(name = "sexe")
     private boolean sexe;
     @Basic(optional = false)
@@ -147,9 +153,9 @@ public class Employes implements Serializable {
     
     public String displaySexe(Boolean sexe){
         if(sexe){
-            return "Homme";
+            return "H";
         }else{
-            return "Femme";
+            return "F";
         }
     }
     
@@ -184,6 +190,14 @@ public class Employes implements Serializable {
     @Override
     public String toString() {
         return "NoyauFonctionnel.Employes[ numSS=" + numSS + " ]";
+    }
+
+    public List<Reservations> getReservationsList() {
+        return reservationsList;
+    }
+
+    public void setReservationsList(List<Reservations> reservationsList) {
+        this.reservationsList = reservationsList;
     }
 
     

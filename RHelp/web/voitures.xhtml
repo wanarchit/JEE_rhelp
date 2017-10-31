@@ -15,38 +15,113 @@
         <p:link outcome="employes" value="Gestion des employés"/>
         <p:spacer width="100" height="10" />
         <p:link outcome="voitures" value="Gestion des véhicules"/>
+        <p:spacer width="100" height="10" />
+        <p:link outcome="reservation" value="Gestion des réservations"/>
         <br/><br/>
         <h:form id="form">
             <p:dataTable value="#{voitureControler.voitures}" selectionMode="single" selection="#{voitureControler.selectedVoi}"
-                         var="voi" rowKey="#{voi.plaque}" >
-                <!--<p:ajax event="rowSelect" update="formUp:diagUpdate"/> -->
+                         widgetVar="voiTable" var="voi" rowKey="#{voi.plaque}">
+                <p:ajax event="rowSelect" update="formUp:diagUpdate"/>
                 <f:facet name="header">
                     Liste des véhicules
                 </f:facet>
-                <p:column headerText="Plaque">
+                <p:column headerText="Plaque" sortBy="#{voi.plaque}">
                     <h:outputText value="#{voi.plaque}" />
                 </p:column>
-                <p:column headerText="Marque">
-                    <B><h:outputText value="#{voi.marque}" /></B>
-                </p:column>
-                <p:column headerText="Modèle">
-                    <B><h:outputText value="#{voi.modele}" /></B>
+                <p:column headerText="Marque/Modèle" sortBy="#{voi.marque}">
+                    <B><h:outputText value="#{voi.marque} #{voi.modele}" /></B>
                 </p:column>
                 <p:column headerText="Kilométrage">
                     <h:outputText value="#{voi.kilometrage}" />
                 </p:column>
-                <p:column headerText="Disponible">
+                <p:column headerText="Disponible" filterBy="#{voi.disponibilite}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:selectOneButton onchange="PF('voiTable').filter()">
+                            <f:converter converterId="javax.faces.Boolean" />
+                            <f:selectItem itemLabel="All" itemValue="" />
+                            <f:selectItem itemLabel="Dispo" itemValue="true" />
+                            <f:selectItem itemLabel="Non dispo" itemValue="false" />
+                        </p:selectOneButton>
+                    </f:facet>
                     <h:outputText value="#{voi.displayDispo(voi.disponibilite)}" />
                 </p:column>
+                
                 <p:column headerText="Date révision">
                     <h:outputText value="#{voi.displayDate(voi.dateRevision)}" />
                 </p:column>
                 <f:facet name="footer">
                     <p:commandButton id="boutonSuppr" action="#{voitureControler.removeVoi(voitureControler.selectedVoi.plaque)}" 
                                  icon="ui-icon-close" value="Supprimer" ajax="false"/>
+                    <p:commandButton id="boutonUpdate" icon="ui-icon-pencil" value="Modifier" ajax="true" 
+                                         onclick="PF('diagUpdate').show();"/>
                     Total : #{fn:length(voitureControler.voitures)} voiture(s)
                 </f:facet>
             </p:dataTable>
+        </h:form>
+        <h:form id="formUp">
+            <p:dialog id="diagUpdate" header="Modifier un véhicule" modal="true" widgetVar="diagUpdate" resizable="false">
+                <h:panelGrid columns="3" cellpadding="5">
+                    
+                    <p:outputLabel for="kmU" value="Kilométrage :" />
+                    <p:inputText id="kmU" value = "#{voitureControler.selectedVoi.kilometrage}">
+                            <f:convertNumber integerOnly="true"/>
+                        </p:inputText>
+                        <p:message for="kmU"/>
+                    
+                    <h:outputLabel for="dateU" value="Date révision" /><p:inputMask id="dateU" value="#{voitureControler.selectedVoi.dateRevision}" mask="99/99/9999">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:inputMask>
+                    <p:message for="dateU" />
+                    
+                    <p:outputLabel for="dispoU" value="Disponibilité " />
+                    <p:selectOneRadio id="dispoU" value="#{voitureControler.selectedVoi.disponibilite}">
+                            <f:selectItem itemLabel="Non disponible" itemValue="false" />
+                            <f:selectItem itemLabel="Disponible" itemValue="true" />
+                        </p:selectOneRadio>
+                    <p:message for="dispoU"/>
+                    
+                    <f:facet name="footer">
+                        <center> <p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{voitureControler.updateVoi(voitureControler.selectedVoi)}" 
+                                         ajax="false"/></center>
+                    </f:facet>  
+                </h:panelGrid>
+           </p:dialog>
+        </h:form>
+        <br/>
+        <p:messages autoUpdate="true"/>
+        <br/>
+        <h:form id="formAdd">
+            <p:accordionPanel activeIndex="null">
+                <p:tab title="Ajouter un véhicule">
+                    <center>
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <h:outputLabel for="plaque" value="Plaque d'immatriculation :"/>
+                        <p:inputMask id="plaque" value = "#{voiture.plaque}" required="true" label="Plaque" mask="aa-999-aa"/>
+                        <p:message for="plaque"/>                
+                        
+                        <p:outputLabel for="marque" value="Marque :" /><p:inputText id="marque" value = "#{voiture.marque}"/>
+                        <p:message for="marque"/>  
+                        
+                        <p:outputLabel for="model" value="Modèle :" /><p:inputText id="model" value = "#{voiture.modele}"/>
+                        <p:message for="model"/>
+                        
+                        <p:outputLabel for="km" value="Kilométrage :" />
+                        <p:inputText id="km" value = "#{voiture.kilometrage}">
+                            <f:convertNumber integerOnly="true"/>
+                        </p:inputText>
+                        <p:message for="km"/>  
+                        
+                        <h:outputLabel for="date" value="Date prochaine révision :" /><p:inputMask id="date" value="#{voiture.dateRevision}" mask="99/99/9999">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputMask>
+                        <p:message for="date" />                        
+                        
+                        <f:facet name="footer">
+                            <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{voitureControler.addVoi(voiture)}"/></center>
+                        </f:facet>
+                    </h:panelGrid></center>
+                </p:tab>
+            </p:accordionPanel>
         </h:form>
     </h:body>
 </html>

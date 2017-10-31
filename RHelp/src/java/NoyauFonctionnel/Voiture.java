@@ -8,13 +8,16 @@ package NoyauFonctionnel;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +40,9 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "Voiture.findByDateRevision", query = "SELECT v FROM Voiture v WHERE v.dateRevision = :dateRevision")
     , @NamedQuery(name = "Voiture.findByDisponibilite", query = "SELECT v FROM Voiture v WHERE v.disponibilite = :disponibilite")})
 public class Voiture implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "plaque")
+    private List<Reservations> reservationsList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -170,6 +176,14 @@ public class Voiture implements Serializable {
     @Override
     public String toString() {
         return "NoyauFonctionnel.Voiture[ plaque=" + plaque + " ]";
+    }
+
+    public List<Reservations> getReservationsList() {
+        return reservationsList;
+    }
+
+    public void setReservationsList(List<Reservations> reservationsList) {
+        this.reservationsList = reservationsList;
     }
     
 }

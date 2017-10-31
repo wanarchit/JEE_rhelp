@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h:head>
+        <title>Les réservations</title>
+    </h:head>
+    <h:body>
+        <center><h1><font color = "blue"><u>Gestion des réservations</u></font></h1></center>
+        <p:link outcome="index" value="Accueil"/>
+        <p:spacer width="100" height="10" />
+        <p:link outcome="employes" value="Gestion des employés"/>
+        <p:spacer width="100" height="10" />
+        <p:link outcome="voitures" value="Gestion des véhicules"/>
+        <p:spacer width="100" height="10" />
+        <p:link outcome="reservation" value="Gestion des réservations"/>
+        <br/><br/>
+        <h:form id="form">
+            <p:dataTable value="#{reservationControler.reservations}" selectionMode="single" selection="#{reservationControler.selectedResa}"
+                         var="resa" rowKey="#{resa.idResa}" >
+                <!--<p:ajax event="rowSelect" update="formUp:diagUpdate"/>-->
+                <f:facet name="header">
+                    Liste des reservations
+                </f:facet>
+                <p:column headerText="Période">
+                    <h:outputText value="Du #{resa.displayDateD(resa.dateD)} Au #{resa.displayDateF(resa.dateF)}" escape="false" />
+                </p:column>
+                <p:column headerText="Employé">
+                    <h:outputText value="#{resa.numSS.prenom} #{resa.numSS.nom}" />
+                </p:column>
+                <p:column headerText="Véhicule">
+                    <h:outputText value="#{resa.plaque.marque} #{resa.plaque.modele}" />
+                </p:column>
+                <p:column headerText="Etat de la demande">
+                    <h:outputText value="#{resa.etat}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        
+        <br/>
+        <p:messages autoUpdate="true"/>
+        <br/>
+        <h:form id="formAdd">
+            <p:accordionPanel activeIndex="null">
+                <p:tab title="Ajouter une réservation">
+                    <center>
+                    <h:panelGrid columns="3" cellpadding="5">     
+                        
+                        <p:outputLabel for="dateD" value="Date début :" />
+                        <p:calendar id="dateD" value="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm"/>
+                        <p:message for="dateD" />
+                        
+                        <p:outputLabel for="dateF" value="Date fin :" />
+                        <p:calendar id="dateF" value="#{reservations.dateF}" pattern="dd/MM/yyyy HH:mm"/>
+                        <p:message for="dateF" />
+                        
+                        <p:outputLabel for="employe" value="Choisir un employé :" />
+                        <p:selectOneListbox id="employe" value="#{employeControler.selectedEmp}" var="e" filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{employeControler.employes}" var="emp" itemLabel="#{emp.prenom}" itemValue="#{reservations.numSS}" />
+                            <p:column>
+                                <h:outputText value="#{e.prenom}" />
+                            </p:column>
+                        </p:selectOneListbox>
+                        <p:message for="employe" />
+                        
+                        <p:outputLabel for="voiture" value="Choisir un véhicule :" />
+                        <p:selectOneListbox id="voiture" value="#{voitureControler.selectedVoi}" var="v" filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{voitureControler.voitures}" var="voi" itemLabel="#{voi.marque}" itemValue="#{reservations.plaque}" />
+                            <p:column>
+                                <h:outputText value="#{v.marque}" />
+                            </p:column>
+                        </p:selectOneListbox>
+                        <p:message for="voiture" />
+                        
+                        <p:outputLabel for="etat" value="Etat :" /><p:inputText id="etat" value = "#{reservations.etat}"/>
+                        <p:message for="etat"/>  
+                        
+                        <f:facet name="footer">
+                            <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{reservationControler.addResa(reservations)}"/></center>
+                        </f:facet>
+                    </h:panelGrid></center>
+                </p:tab>
+            </p:accordionPanel>
+        </h:form>
+    </h:body>
+</html>
+

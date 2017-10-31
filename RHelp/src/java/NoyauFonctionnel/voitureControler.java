@@ -7,6 +7,7 @@ package NoyauFonctionnel;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -22,18 +23,26 @@ public class voitureControler implements Serializable{
     @EJB
     private voitureDAO dao;
     private Voiture selectedVoi;
+    private List<Voiture> listVoiture;
     
     /**
      * Creates a new instance of voitureControler
      */
     public voitureControler() {
+        
     }
     
     public List<Voiture> getVoitures() {
-        return dao.getAll();
+        return this.listVoiture;
+    }
+    
+    @PostConstruct
+    public void init() {
+        this.listVoiture = dao.getAll();
     }
     
     public void addVoi(Voiture voi){
+        voi.setDisponibilite(true);
         dao.saveVoiture(voi);
     }
     
