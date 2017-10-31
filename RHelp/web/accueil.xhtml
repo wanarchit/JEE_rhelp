@@ -20,22 +20,22 @@
         <br/><br/>
 
 
-        <p:panelMenu style="width:300px">
-            <p:submenu label="Employés">
-                <p:menuitem value="Ajouter" url="faces/employes.xhtml" icon="ui-icon-disk" />
-                <p:menuitem value="Visualiser" url="faces/employes.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+        <p:menubar >
+            <p:menuitem value="Accueil" icon="ui-icon-home" url="faces/accueil.xhtml" />
+            <p:submenu label="Employés" icon="ui-icon-person">
+                <p:menuitem value="Visualiser" icon="ui-icon-search" url="faces/employes.xhtml" />
+                <p:menuitem value="Ajouter" icon="ui-icon-plus" url="faces/employes.xhtml"  />
+                <p:menuitem value="Supprimer" icon="ui-icon-close" url="faces/employes.xhtml" />
             </p:submenu>
-            <p:separator />
-            <p:submenu label="Véhicules" >
-                <p:menuitem value="Ajouter" url="voitures.xhtml" icon="ui-icon-disk" />
-                <p:menuitem value="Visualiser" url="voitures.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+            <p:submenu label="Véhicules" icon="ui-icon-pencil">
+                <p:menuitem value="Visualiser" url="faces/voitures.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
+                <p:menuitem value="Ajouter" url="faces/voitures.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
             </p:submenu>
-            <p:separator />
-            <p:submenu label="Réservations">
-                <p:menuitem value="Ajouter" url="reservation.xhtml" icon="ui-icon-disk" />
-                <p:menuitem value="Visualiser" url="reservation.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
+            <p:submenu label="Réservations" icon="ui-icon-help">
+                <p:menuitem value="Visualiser" url="faces/reservation.xhtml" />
+                <p:menuitem value="Ajouter" url="faces/reservation.xhtml" />
             </p:submenu>
-        </p:panelMenu>
+        </p:menubar>
 
     </h:body>
 </html>
