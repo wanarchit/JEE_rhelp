@@ -19,23 +19,15 @@
         <p:link outcome="reservation" value="Gestion des réservations"/>
         <br/><br/>
 
-
-        <p:panelMenu style="width:300px">
-            <p:submenu label="Employés">
-                <p:menuitem value="Ajouter" url="faces/employes.xhtml" icon="ui-icon-disk" />
-                <p:menuitem value="Visualiser" url="faces/employes.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
-            </p:submenu>
-            <p:separator />
-            <p:submenu label="Véhicules" >
-                <p:menuitem value="Ajouter" url="voitures.xhtml" icon="ui-icon-disk" />
-                <p:menuitem value="Visualiser" url="voitures.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
-            </p:submenu>
-            <p:separator />
-            <p:submenu label="Réservations">
-                <p:menuitem value="Ajouter" url="reservation.xhtml" icon="ui-icon-disk" />
-                <p:menuitem value="Visualiser" url="reservation.xhtml"  icon="ui-icon-arrowrefresh-1-w" />
-            </p:submenu>
-        </p:panelMenu>
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="faces/accueil.xhtml" />
+                <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="faces/employes.xhtml"/>
+                <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="faces/voitures.xhtml"/>
+                <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="faces/reservation.xhtml"/>
+            </p:menubar>
+            <br/><br/>
+        </h:form>
 
     </h:body>
 </html>
