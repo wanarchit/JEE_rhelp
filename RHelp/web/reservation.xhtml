@@ -57,22 +57,11 @@
                         <p:calendar id="dateF" value="#{reservations.dateF}" pattern="dd/MM/yyyy HH:mm"/>
                         <p:message for="dateF" />
                         
-                        <p:outputLabel for="employe" value="Choisir un employé :" />
-                        <p:selectOneListbox id="employe" value="#{employeControler.selectedEmp}" var="e" filter="true" filterMatchMode="contains">
-                            <f:selectItems value="#{employeControler.employes}" var="emp" itemLabel="#{emp.prenom}" itemValue="#{reservations.numSS}" />
-                            <p:column>
-                                <h:outputText value="#{e.prenom}" />
-                            </p:column>
-                        </p:selectOneListbox>
-                        <p:message for="employe" />
                         
                         <p:outputLabel for="voiture" value="Choisir un véhicule :" />
-                        <p:selectOneListbox id="voiture" value="#{voitureControler.selectedVoi}" var="v" filter="true" filterMatchMode="contains">
-                            <f:selectItems value="#{voitureControler.voitures}" var="voi" itemLabel="#{voi.marque}" itemValue="#{reservations.plaque}" />
-                            <p:column>
-                                <h:outputText value="#{v.marque}" />
-                            </p:column>
-                        </p:selectOneListbox>
+                        <p:selectOneMenu id="voiture" value="#{reservations.plaque}">
+                            <f:selectItems value="#{voitureControler.voitures}" var="voi" itemLabel="#{voi.plaque}" itemValue="#{voi.plaque}" />
+                        </p:selectOneMenu>
                         <p:message for="voiture" />
                         
                         <p:outputLabel for="etat" value="Etat :" /><p:inputText id="etat" value = "#{reservations.etat}"/>
@@ -88,3 +77,4 @@
     </h:body>
 </html>
 
+<!--filter="true" filterMatchMode="contains"-->
