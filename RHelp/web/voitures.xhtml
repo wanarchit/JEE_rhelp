@@ -9,6 +9,7 @@
         <title>Les véhicules</title>
     </h:head>
     <h:body>
+        <h:graphicImage value="/Images/banniere3.png" />
         <h:form>
             <p:menubar>
                 <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="faces/accueil.xhtml" />
@@ -16,8 +17,9 @@
                 <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="faces/voitures.xhtml"/>
                 <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="faces/reservation.xhtml"/>
             </p:menubar>
-            <br/><br/>
         </h:form>
+        <center><h1><font color = "blue"><u>Gestion des véhicules</u></font></h1></center>
+        <br/><br/>
         
         <h:form id="form">
             <p:dataTable value="#{voitureControler.voitures}" selectionMode="single" selection="#{voitureControler.selectedVoi}"
@@ -124,6 +126,10 @@
                 </p:tab>
             </p:accordionPanel>
         </h:form>
+        <br/><br/><br/><br/>
+        <p:separator />
+        footer toto
+        <p:separator />
     </h:body>
 </html>
 

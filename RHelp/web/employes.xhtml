@@ -9,6 +9,7 @@
         <title>Les employés</title>
     </h:head>
     <h:body>
+        <h:graphicImage value="/Images/banniere3.png" />
         <h:form>
             <p:menubar>
                 <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="faces/accueil.xhtml" />
@@ -16,9 +17,9 @@
                 <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="faces/voitures.xhtml"/>
                 <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="faces/reservation.xhtml"/>
             </p:menubar>
-            <br/><br/>
         </h:form>
-
+        <center><h1><font color = "blue"><u>Gestion des employés</u></font></h1></center>
+        <br/><br/>
         <h:form id="form">
             <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"
                          var="e" rowKey="#{e.numSS}" >
@@ -144,14 +145,11 @@
         <h:form id="formResa">
            <p:dialog id="diagResa" header="Réservations de l'employé" modal="true" widgetVar="diagResa" resizable="false">
                 <p:dataTable value="#{reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS)}" var="r" >
+                    <p:column headerText="Période">
+                        <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
+                    </p:column>
                     <p:column headerText="Voiture">
                         <h:outputText value="#{r.plaque.marque} #{r.plaque.modele}" />
-                    </p:column>
-                    <p:column headerText="Date de début">
-                        <h:outputText value="#{r.displayDateD(r.dateD)}" />
-                    </p:column>
-                    <p:column headerText="Date de fin">
-                        <h:outputText value="#{r.displayDateF(r.dateF)}" />
                     </p:column>
                     <p:column headerText="Etat de la demande">
                         <h:outputText value="#{r.etat}" />
@@ -159,7 +157,10 @@
                 </p:dataTable>
            </p:dialog>
         </h:form>
-
+        <br/><br/><br/><br/>
+        <p:separator />
+        footer toto
+        <p:separator />
     </h:body>
 </html>
 
