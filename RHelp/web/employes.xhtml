@@ -9,18 +9,23 @@
         <title>Les employés</title>
     </h:head>
     <h:body>
-        <center><h1><font color = "blue"><u>Gestion des employés</u></font></h1></center>
-        <p:link outcome="index" value="Accueil"/>
-        <p:spacer width="100" height="10" />
-        <p:link outcome="employes" value="Gestion des employés"/>
-        <p:spacer width="100" height="10" />
-        <p:link outcome="voitures" value="Gestion des véhicules"/>
-        <p:spacer width="100" height="10" />
-        <p:link outcome="reservation" value="Gestion des réservations"/>
-        <br/><br/>
-        
-      
-        
+        <p:menubar >
+            <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="faces/accueil.xhtml" />
+            <p:submenu label="&nbsp; Employés" icon="fa fa-user fa-fw">
+                <p:menuitem value="Visualiser" icon="fa fa-search fa-fw" url="faces/employes.xhtml" />
+                <p:menuitem value="&nbsp; Ajouter" icon="fa fa-user-plus fa-fw" url="faces/employes.xhtml"  />
+                <p:menuitem value="&nbsp; Supprimer" icon="fa fa-user-times fa-fw" url="faces/employes.xhtml" />
+            </p:submenu>
+            <p:submenu label="&nbsp; Véhicules" icon="fa fa-car fa-fw">
+                <p:menuitem value="&nbsp; Visualiser" icon="fa fa-search fa-fw" url="faces/voitures.xhtml" />
+                <p:menuitem value="&nbsp; Ajouter" icon="fa fa-plus fa-fw" url="faces/voitures.xhtml" />
+            </p:submenu>
+            <p:submenu label="&nbsp; Réservations" icon="fa fa-calendar fa-fw">
+                <p:menuitem value="&nbsp; Visualiser" icon="fa fa-search fa-fw" url="faces/reservation.xhtml" />
+                <p:menuitem value="&nbsp; Ajouter" icon="fa fa-plus fa-fw" url="faces/reservation.xhtml" />
+            </p:submenu>
+        </p:menubar>
+
         <h:form id="form">
             <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"
                          var="e" rowKey="#{e.numSS}" >
@@ -45,53 +50,53 @@
                 </p:column>
                 <f:facet name="footer">
                     <p:commandButton id="boutonSuppr" action="#{employeControler.removeEmp(employeControler.selectedEmp.numSS)}" 
-                                 icon="ui-icon-close" value="Supprimer" ajax="false"/>
+                                     icon="ui-icon-close" value="Supprimer" ajax="false"/>
                     <p:commandButton id="boutonUpdate" icon="ui-icon-pencil" value="Modifier" ajax="true" 
-                                         onclick="PF('diagUpdate').show();"/>
+                                     onclick="PF('diagUpdate').show();"/>
                     Total : #{fn:length(employeControler.employes)} employé(s)
                 </f:facet>
             </p:dataTable>
         </h:form>
-        
+
         <h:form id="formUp">
             <p:dialog id="diagUpdate" header="Modifier un employé" modal="true" widgetVar="diagUpdate" resizable="false">
                 <!--<p:messages autoUpdate="true"/>-->
                 <h:panelGrid columns="3" cellpadding="5">
                     <h:outputLabel for="prenomU" value="Prénom" /><p:inputText id="prenomU" value="#{employeControler.selectedEmp.prenom}"/>
                     <p:message for="prenomU"/>  
-                    
+
                     <h:outputLabel for="nomU" value="Nom" /><p:inputText id="nomU" value="#{employeControler.selectedEmp.nom}"/>
                     <p:message for="nomU"/>
-                    
+
                     <p:outputLabel for="sexeU" value="Sexe :" />
                     <p:selectOneRadio id="sexeU" value="#{employeControler.selectedEmp.sexe}">
-                            <f:selectItem itemLabel="Femme" itemValue="false" />
-                            <f:selectItem itemLabel="Homme" itemValue="true" />
-                        </p:selectOneRadio>
+                        <f:selectItem itemLabel="Femme" itemValue="false" />
+                        <f:selectItem itemLabel="Homme" itemValue="true" />
+                    </p:selectOneRadio>
                     <p:message for="sexeU"/>
-                    
+
                     <h:outputLabel for="dateU" value="Date naissance" /><p:inputMask id="dateU" value="#{employeControler.selectedEmp.dateNaissance}" mask="99/99/9999">
                         <f:convertDateTime pattern="dd/MM/yyyy" />
                     </p:inputMask>
                     <p:message for="dateU" />
-                    
+
                     <h:outputLabel for="adrU" value="Adresse" /><p:inputText id="adrU" value="#{employeControler.selectedEmp.adresse}"/>
                     <p:message for="adrU" />
-                    
+
                     <p:outputLabel for="mailU" value="Email :" />
                     <p:inputText id="mailU" value="#{employeControler.selectedEmp.mail}" validatorMessage="Le format de l'adresse n'est pas correct">
-                            <f:validateRegex pattern="^[a-zA-Z1-9\.\-\_]+\@[a-zA-Z]+\.[a-zA-Z]+$" />
-                        </p:inputText>
-                        <p:message for="mailU"/>
-                        
+                        <f:validateRegex pattern="^[a-zA-Z1-9\.\-\_]+\@[a-zA-Z]+\.[a-zA-Z]+$" />
+                    </p:inputText>
+                    <p:message for="mailU"/>
+
                     <f:facet name="footer">
                         <center> <p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
-                                         ajax="false"/></center>
+                                                  ajax="false"/></center>
                     </f:facet>  
                 </h:panelGrid>
-           </p:dialog>
+            </p:dialog>
         </h:form>
-        
+
         <br/>
         <p:messages autoUpdate="true"/>
         <br/>
@@ -99,43 +104,43 @@
             <p:accordionPanel activeIndex="null">
                 <p:tab title="Ajouter un employé">
                     <center>
-                    <h:panelGrid columns="3" cellpadding="5">
-                        <h:outputLabel for="numSS" value="Numéro SS :"/>
-                        <p:inputMask id="numSS" value = "#{employes.numSS}" required="true" label="Numéro SS" mask="9 99 99 99 999 999 99"/>
-                        <p:message for="numSS"/>                
-                        
-                        <p:outputLabel for="prenom" value="Prénom :" /><p:inputText id="prenom" value = "#{employes.prenom}"/>
-                        <p:message for="prenom"/>  
-                        
-                        <p:outputLabel for="nom" value="Nom :" /><p:inputText id="nom" value = "#{employes.nom}"/>
-                        <p:message for="nom"/> 
-                        
-                        <p:outputLabel for="sexe" value="Sexe :" />
-                        <p:selectOneRadio id="sexe" value="#{employes.sexe}">
-                            <f:selectItem itemLabel="Femme" itemValue="0" />
-                            <f:selectItem itemLabel="Homme" itemValue="1" />
-                        </p:selectOneRadio>
-                        <p:message for="sexe"/> 
-                        
-                        <h:outputLabel for="date" value="Date naissance :" /><p:inputMask id="date" value="#{employes.dateNaissance}" mask="99/99/9999">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </p:inputMask>
-                        <p:message for="date" />
-                        
-                        <p:outputLabel for="adr" value="Adresse :" /><p:inputText id="adr" value = "#{employes.adresse}"/>
-                        <p:message for="adr"/>  
-                        
-                        <p:outputLabel for="mail" value="Email :" />
-                        <p:inputText id="mail" value="#{employes.mail}" validatorMessage="Le format de l'adresse n'est pas correct">
-                            <f:validateRegex pattern="^[a-zA-Z1-9\.\-\_]+\@[a-zA-Z]+\.[a-zA-Z]+$" />
-                        </p:inputText>
-                        <p:message for="mail"/>
-                        
-                        
-                        <f:facet name="footer">
-                            <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{employeControler.addEmp(employes)}"/></center>
-                        </f:facet>
-                    </h:panelGrid></center>
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <h:outputLabel for="numSS" value="Numéro SS :"/>
+                            <p:inputMask id="numSS" value = "#{employes.numSS}" required="true" label="Numéro SS" mask="9 99 99 99 999 999 99"/>
+                            <p:message for="numSS"/>                
+
+                            <p:outputLabel for="prenom" value="Prénom :" /><p:inputText id="prenom" value = "#{employes.prenom}"/>
+                            <p:message for="prenom"/>  
+
+                            <p:outputLabel for="nom" value="Nom :" /><p:inputText id="nom" value = "#{employes.nom}"/>
+                            <p:message for="nom"/> 
+
+                            <p:outputLabel for="sexe" value="Sexe :" />
+                            <p:selectOneRadio id="sexe" value="#{employes.sexe}">
+                                <f:selectItem itemLabel="Femme" itemValue="0" />
+                                <f:selectItem itemLabel="Homme" itemValue="1" />
+                            </p:selectOneRadio>
+                            <p:message for="sexe"/> 
+
+                            <h:outputLabel for="date" value="Date naissance :" /><p:inputMask id="date" value="#{employes.dateNaissance}" mask="99/99/9999">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:inputMask>
+                            <p:message for="date" />
+
+                            <p:outputLabel for="adr" value="Adresse :" /><p:inputText id="adr" value = "#{employes.adresse}"/>
+                            <p:message for="adr"/>  
+
+                            <p:outputLabel for="mail" value="Email :" />
+                            <p:inputText id="mail" value="#{employes.mail}" validatorMessage="Le format de l'adresse n'est pas correct">
+                                <f:validateRegex pattern="^[a-zA-Z1-9\.\-\_]+\@[a-zA-Z]+\.[a-zA-Z]+$" />
+                            </p:inputText>
+                            <p:message for="mail"/>
+
+
+                            <f:facet name="footer">
+                                <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{employeControler.addEmp(employes)}"/></center>
+                            </f:facet>
+                        </h:panelGrid></center>
                 </p:tab>
             </p:accordionPanel>
         </h:form>
