@@ -57,9 +57,14 @@
                         <p:calendar id="dateF" value="#{reservations.dateF}" pattern="dd/MM/yyyy HH:mm"/>
                         <p:message for="dateF" />
                         
+                        <p:outputLabel for="employe" value="Choisir un employé :" />
+                        <p:selectOneMenu id="employe" value="#{reservations.numSS}" converter="convertEmpNumss">
+                            <f:selectItems value="#{employeControler.employes}" var="emp" itemLabel="#{emp.numSS}" itemValue="#{emp.numSS}" />
+                        </p:selectOneMenu>
+                        <p:message for="employe" />
                         
                         <p:outputLabel for="voiture" value="Choisir un véhicule :" />
-                        <p:selectOneMenu id="voiture" value="#{reservations.plaque}">
+                        <p:selectOneMenu id="voiture" value="#{reservations.plaque}" converter="convertVoitPlaque">
                             <f:selectItems value="#{voitureControler.voitures}" var="voi" itemLabel="#{voi.plaque}" itemValue="#{voi.plaque}" />
                         </p:selectOneMenu>
                         <p:message for="voiture" />

@@ -61,4 +61,8 @@ public class voitureControler implements Serializable{
     public void updateVoi(Voiture voi){
         dao.updateVoi(voi);
     }
+    
+    public Voiture getOneVoiture(String pla){
+        return dao.getOneVoiture(pla);
+    }
 }
