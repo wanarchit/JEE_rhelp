@@ -36,6 +36,16 @@ public class reservationDAO {
         }
     }
     
+    public List<Reservations> getReservationEmp(String secu){
+        Query query = em.createNamedQuery("Reservations.findByNumSS").setParameter("numSS", secu);
+        try{
+            return query.getResultList();
+        } catch (NoResultException e){
+            System.err.println("Pas de réservation pour cet employé");
+            return null;
+        }
+    }   
+    
     public void saveReservation(Reservations resa) {
         em.persist(resa);
         em.flush();

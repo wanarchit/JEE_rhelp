@@ -53,6 +53,9 @@ public class employeControler implements Serializable{
     }
     
     public Employes getSelectedEmp() {
+        if (selectedEmp == null){
+            selectedEmp = getEmployes().get(0);
+        }
         return selectedEmp;
     }
 

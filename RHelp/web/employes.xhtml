@@ -23,6 +23,7 @@
             <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"
                          var="e" rowKey="#{e.numSS}" >
                 <p:ajax event="rowSelect" update="formUp:diagUpdate"/>
+                <p:ajax event="rowSelect" update="formResa:diagResa"/>
                 <f:facet name="header">
                     Liste des employés
                 </f:facet>
@@ -46,6 +47,8 @@
                                      icon="ui-icon-close" value="Supprimer" ajax="false"/>
                     <p:commandButton id="boutonUpdate" icon="ui-icon-pencil" value="Modifier" ajax="true" 
                                      onclick="PF('diagUpdate').show();"/>
+                    <p:commandButton id="boutonResa" icon="ui-icon-calendar" value="Réservations" ajax="true" 
+                                     onclick="PF('diagResa').show();"/>
                     Total : #{fn:length(employeControler.employes)} employé(s)
                 </f:facet>
             </p:dataTable>
@@ -137,6 +140,26 @@
                 </p:tab>
             </p:accordionPanel>
         </h:form>
+
+        <h:form id="formResa">
+           <p:dialog id="diagResa" header="Réservations de l'employé" modal="true" widgetVar="diagResa" resizable="false">
+                <p:dataTable value="#{reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS)}" var="r" >
+                    <p:column headerText="Voiture">
+                        <h:outputText value="#{r.plaque.marque} #{r.plaque.modele}" />
+                    </p:column>
+                    <p:column headerText="Date de début">
+                        <h:outputText value="#{r.displayDateD(r.dateD)}" />
+                    </p:column>
+                    <p:column headerText="Date de fin">
+                        <h:outputText value="#{r.displayDateF(r.dateF)}" />
+                    </p:column>
+                    <p:column headerText="Etat de la demande">
+                        <h:outputText value="#{r.etat}" />
+                    </p:column>
+                </p:dataTable>
+           </p:dialog>
+        </h:form>
+
     </h:body>
 </html>
 

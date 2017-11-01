@@ -37,6 +37,7 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "Reservations.findByIdResa", query = "SELECT r FROM Reservations r WHERE r.idResa = :idResa")
     , @NamedQuery(name = "Reservations.findByDateD", query = "SELECT r FROM Reservations r WHERE r.dateD = :dateD")
     , @NamedQuery(name = "Reservations.findByDateF", query = "SELECT r FROM Reservations r WHERE r.dateF = :dateF")
+    , @NamedQuery(name = "Reservations.findByNumSS", query = "SELECT r FROM Reservations r WHERE r.numSS.numSS = :numSS")
     , @NamedQuery(name = "Reservations.findByEtat", query = "SELECT r FROM Reservations r WHERE r.etat = :etat")})
 public class Reservations implements Serializable {
 
