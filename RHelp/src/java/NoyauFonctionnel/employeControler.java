@@ -32,6 +32,18 @@ public class employeControler implements Serializable{
         return dao.getAll();
     }
     
+    public Employes getOneEmploye(String idE) {
+        
+        System.out.println("idE = "+idE);
+        if(dao == null){
+            System.out.println("DAO null");
+        }else{
+            System.out.println("DAO non null");
+        }
+        Employes emp = dao.getOneEmploye(idE);
+        return emp;
+    }
+    
     public void addEmp(Employes emp){
         dao.saveEmploye(emp);
     }

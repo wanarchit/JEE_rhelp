@@ -28,10 +28,15 @@ public class employeDAO {
     }
     
     public Employes getOneEmploye(String id){
+        System.out.println("getOnEmp ok");
         Query query = em.createNamedQuery("Employes.findByNumSS").setParameter("numSS", id);
+        System.out.println("query = "+query.toString());
         try{
-            return (Employes) query.getSingleResult();
+            Employes var = (Employes) query.getSingleResult();
+            System.out.println("ok");
+            return var;
         } catch (NoResultException e){
+            System.out.println("pas ok");
             System.err.println("pas d'employé avec cet id");
             return null;
         }

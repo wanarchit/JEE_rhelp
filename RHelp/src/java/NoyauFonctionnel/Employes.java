@@ -200,7 +200,23 @@ public class Employes implements Serializable {
         this.reservationsList = reservationsList;
     }
 
-    
+    public boolean isReserve(Date dateDemandD, Date dateDemandF){
+        boolean valid = true;
+        for (Reservations resa : getReservationsList()) {
+            if (resa.getNumSS().equals(this)) {
+                if(resa.getDateD().before(dateDemandD) && resa.getDateF().after(dateDemandD)){
+                    valid = false;
+                }
+                if(resa.getDateD().after(dateDemandD) && resa.getDateF().before(dateDemandF)){
+                    valid = false;
+                }
+                if(resa.getDateD().before(dateDemandF) && resa.getDateF().after(dateDemandF)){
+                    valid = false;
+                }
+            }
+        }
+        return valid;
+    }
     
     
 }

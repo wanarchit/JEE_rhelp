@@ -51,24 +51,32 @@
                         <h:panelGrid columns="3" cellpadding="5">     
 
                             <p:outputLabel for="dateD" value="Date début :" />
-                            <p:calendar id="dateD" value="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm"/>
+                            <p:calendar id="dateD" value="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm" required="true" binding="#{dateD}">
+                            <p:ajax event="dateSelect" update="dateF" />
+                            </p:calendar>
                             <p:message for="dateD" />
 
                             <p:outputLabel for="dateF" value="Date fin :" />
-                            <p:calendar id="dateF" value="#{reservations.dateF}" pattern="dd/MM/yyyy HH:mm"/>
+                            <p:calendar id="dateF" value="#{reservations.dateF}" mindate="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm" required="true">
+                            <f:validator validatorId="dateRangeResaValidator"/>
+                            <f:attribute name="dateD" value="#{dateD}" />
+                            <f:attribute name="resa" value="#{reservationControler.reservations}" />
+                            <f:attribute name="numSS" value="#{numSS}" />
+                            <f:attribute name="plaque" value="#{plaque}" />
+                            </p:calendar>
                             <p:message for="dateF" />
 
-                            <p:outputLabel for="employe" value="Choisir un employé :" />
-                            <p:selectOneMenu id="employe" value="#{reservations.numSS}" converter="convertEmpNumss">
-                                <f:selectItems value="#{employeControler.employes}" var="emp" itemLabel="#{emp.prenom} #{emp.nom}" itemValue="#{emp.numSS}" />
+                            <p:outputLabel for="numSS" value="Choisir un employé :" />
+                            <p:selectOneMenu id="numSS" value="#{reservations.numSS}" converter="convertEmpNumss" binding="#{numSS}">
+                                <f:selectItems value="#{employeControler.employes}" var="emp" itemLabel="#{emp.prenom} #{emp.nom}" itemValue="#{emp.numSS}"/>
                             </p:selectOneMenu>
-                            <p:message for="employe" />
+                            <p:message for="numSS" />
 
-                            <p:outputLabel for="voiture" value="Choisir un véhicule :" />
-                            <p:selectOneMenu id="voiture" value="#{reservations.plaque}" converter="convertVoitPlaque">
+                            <p:outputLabel for="plaque" value="Choisir un véhicule :" />
+                            <p:selectOneMenu id="plaque" value="#{reservations.plaque}" converter="convertVoitPlaque" binding="#{plaque}">
                                 <f:selectItems value="#{voitureControler.voitures}" var="voi" itemLabel="#{voi.marque} #{voi.modele}" itemValue="#{voi.plaque}" />
                             </p:selectOneMenu>
-                            <p:message for="voiture" />
+                            <p:message for="plaque" />
 
                             <f:facet name="footer">
                                 <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{reservationControler.addResa(reservations)}"/></center>
