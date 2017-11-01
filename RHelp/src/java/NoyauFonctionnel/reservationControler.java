@@ -33,6 +33,10 @@ public class reservationControler implements Serializable{
         return dao.getAll();
     }
     
+    public List<Reservations> getReservationsEmp(String secu){
+        return dao.getReservationEmp(secu);
+    }
+    
     public void addResa(Reservations resa){
         dao.saveReservation(resa);
     }
