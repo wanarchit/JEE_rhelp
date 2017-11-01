@@ -51,6 +51,9 @@ public class voitureControler implements Serializable{
     }
     
     public Voiture getSelectedVoi() {
+        if (selectedVoi == null){
+            selectedVoi = getVoitures().get(0);
+        }
         return selectedVoi;
     }
 
