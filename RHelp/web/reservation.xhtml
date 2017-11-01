@@ -39,43 +39,41 @@
                 </p:column>
             </p:dataTable>
         </h:form>
-        
+
         <br/>
         <p:messages autoUpdate="true"/>
         <br/>
         <h:form id="formAdd">
+            <a name="anchor1"/>
             <p:accordionPanel activeIndex="null">
                 <p:tab title="Ajouter une réservation">
                     <center>
-                    <h:panelGrid columns="3" cellpadding="5">     
-                        
-                        <p:outputLabel for="dateD" value="Date début :" />
-                        <p:calendar id="dateD" value="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm"/>
-                        <p:message for="dateD" />
-                        
-                        <p:outputLabel for="dateF" value="Date fin :" />
-                        <p:calendar id="dateF" value="#{reservations.dateF}" pattern="dd/MM/yyyy HH:mm"/>
-                        <p:message for="dateF" />
-                        
-                        <p:outputLabel for="employe" value="Choisir un employé :" />
-                        <p:selectOneMenu id="employe" value="#{reservations.numSS}" converter="convertEmpNumss">
-                            <f:selectItems value="#{employeControler.employes}" var="emp" itemLabel="#{emp.numSS}" itemValue="#{emp.numSS}" />
-                        </p:selectOneMenu>
-                        <p:message for="employe" />
-                        
-                        <p:outputLabel for="voiture" value="Choisir un véhicule :" />
-                        <p:selectOneMenu id="voiture" value="#{reservations.plaque}" converter="convertVoitPlaque">
-                            <f:selectItems value="#{voitureControler.voitures}" var="voi" itemLabel="#{voi.plaque}" itemValue="#{voi.plaque}" />
-                        </p:selectOneMenu>
-                        <p:message for="voiture" />
-                        
-                        <p:outputLabel for="etat" value="Etat :" /><p:inputText id="etat" value = "#{reservations.etat}"/>
-                        <p:message for="etat"/>  
-                        
-                        <f:facet name="footer">
-                            <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{reservationControler.addResa(reservations)}"/></center>
-                        </f:facet>
-                    </h:panelGrid></center>
+                        <h:panelGrid columns="3" cellpadding="5">     
+
+                            <p:outputLabel for="dateD" value="Date début :" />
+                            <p:calendar id="dateD" value="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm"/>
+                            <p:message for="dateD" />
+
+                            <p:outputLabel for="dateF" value="Date fin :" />
+                            <p:calendar id="dateF" value="#{reservations.dateF}" pattern="dd/MM/yyyy HH:mm"/>
+                            <p:message for="dateF" />
+
+                            <p:outputLabel for="employe" value="Choisir un employé :" />
+                            <p:selectOneMenu id="employe" value="#{reservations.numSS}" converter="convertEmpNumss">
+                                <f:selectItems value="#{employeControler.employes}" var="emp" itemLabel="#{emp.prenom} #{emp.nom}" itemValue="#{emp.numSS}" />
+                            </p:selectOneMenu>
+                            <p:message for="employe" />
+
+                            <p:outputLabel for="voiture" value="Choisir un véhicule :" />
+                            <p:selectOneMenu id="voiture" value="#{reservations.plaque}" converter="convertVoitPlaque">
+                                <f:selectItems value="#{voitureControler.voitures}" var="voi" itemLabel="#{voi.marque} #{voi.modele}" itemValue="#{voi.plaque}" />
+                            </p:selectOneMenu>
+                            <p:message for="voiture" />
+
+                            <f:facet name="footer">
+                                <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{reservationControler.addResa(reservations)}"/></center>
+                            </f:facet>
+                        </h:panelGrid></center>
                 </p:tab>
             </p:accordionPanel>
         </h:form>

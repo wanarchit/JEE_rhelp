@@ -34,6 +34,7 @@ public class reservationControler implements Serializable{
     }
     
     public void addResa(Reservations resa){
+        resa.setEtat("Validé");
         dao.saveReservation(resa);
     }
     

@@ -23,8 +23,9 @@ public class voitureConverter implements Converter{
         
     }
 
+    @Override
     public String getAsString(FacesContext fc, UIComponent ui, Object value) {
-        return null;
+        return value.toString();
     }
 
  }
