@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NoyauFonctionnel;
+package dao;
 
+import NoyauFonctionnel.Voiture;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

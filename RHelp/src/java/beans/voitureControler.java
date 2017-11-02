@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NoyauFonctionnel;
+package beans;
 
+import NoyauFonctionnel.Voiture;
+import dao.voitureDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

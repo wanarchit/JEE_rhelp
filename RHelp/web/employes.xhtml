@@ -12,13 +12,17 @@
         <h:graphicImage value="/Images/banniere3.png" />
         <h:form>
             <p:menubar>
-                <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="faces/accueil.xhtml" />
-                <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="faces/employes.xhtml"/>
-                <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="faces/voitures.xhtml"/>
-                <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="faces/reservation.xhtml"/>
+                <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueil.xhtml" />
+                <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="employes.xhtml"/>
+                <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="voitures.xhtml"/>
+                <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="reservation.xhtml"/>
+                <f:facet name="options">
+                    <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
+                </f:facet>
             </p:menubar>
         </h:form>
         <center><h1><font color = "blue"><u>Gestion des employés</u></font></h1></center>
+        <p>Welcome, #{loginBean.uname}</p>
         <br/><br/>
         <h:form id="form">
             <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"

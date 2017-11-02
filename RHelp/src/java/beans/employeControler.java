@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NoyauFonctionnel;
+package beans;
 
+import NoyauFonctionnel.Employes;
+import NoyauFonctionnel.Userinfo;
+import dao.UserDAO;
+import dao.employeDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -21,6 +25,7 @@ public class employeControler implements Serializable{
 
     @EJB
     private employeDAO dao;
+    private UserDAO daoUser;
     private Employes selectedEmp;
     /**
      * Creates a new instance of employeControler

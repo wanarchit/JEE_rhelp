@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h:head>
+        <title>Login</title>
+    </h:head>
+    <h:body>
+        <h:graphicImage value="/Images/banniere3.png" />
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="faces/accueil.xhtml" />
+                <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="faces/employes.xhtml"/>
+                <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="faces/voitures.xhtml"/>
+                <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="faces/reservation.xhtml"/>
+                <f:facet name="options">
+                    <h:form id="loginForm">          
+                        <p:growl id="msg" showDetail="true" life="3000" />
+                        <h:panelGrid id="loginPanel" columns="6">
+                            <p:inputText id="username" value="#{loginBean.uname}" placeholder="Username"></p:inputText>
+                            <p:message for="username" ></p:message>
+                            <p:password id="password" value="#{loginBean.password}"  feedback="false" placeholder="Password"></p:password>
+                            <p:message for="password"></p:message>
+                            <p:commandButton action="#{loginBean.loginProject}" value="Login" update="loginForm" ajax="true"></p:commandButton>
+                        </h:panelGrid>
+                    </h:form>
+                </f:facet>
+            </p:menubar>
+            <br/>
+        </h:form>
+        <center><h1><font color = "blue"><u>Bienvenue sur RHelp !</u></font></h1></center>
+        <br/><br/>
+
+        <br/><br/><br/><br/>
+        <p:separator />
+        footer toto
+        <p:separator />
+    </h:body>
+</html>
+<!--
+        Vous n'avez pas encore de compte ?
+        <br/>
+        Pré-requis :<br/>
+        - Avoir fait une demande auprès de votre RH pour vous ajouter en temps qu'employé dans la base de données<br/>
+        - Avoir un super login (unique) qui déchire<br/>
+        - Avoir un mot de passe ultra confidentiel !<br/>
+        <br/><br/>
+        Vous avez tous ça ?<br/>
+        Alors c'est parti !<br/>
+        <p:commandButton icon="ui-icon-pencil" value="Je m'inscrit !" type="button" onclick="PF('diagSubs').show();"/>
+        
+        
+        <h:form id="formSubscribe">
+            <p:dialog header="Modifier un employé" modal="true" widgetVar="diagSubs" resizable="false">
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputLabel value="Prénom" />
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>-->

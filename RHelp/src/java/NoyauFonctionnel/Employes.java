@@ -44,6 +44,9 @@ import javax.validation.constraints.Size;
 public class Employes implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "numSS")
+    private List<Userinfo> userinfoList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numSS")
     private List<Reservations> reservationsList;
 
     private static final long serialVersionUID = 1L;
@@ -216,6 +219,14 @@ public class Employes implements Serializable {
             }
         }
         return valid;
+    }
+
+    public List<Userinfo> getUserinfoList() {
+        return userinfoList;
+    }
+
+    public void setUserinfoList(List<Userinfo> userinfoList) {
+        this.userinfoList = userinfoList;
     }
     
     

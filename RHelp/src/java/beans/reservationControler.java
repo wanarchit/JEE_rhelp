@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NoyauFonctionnel;
+package beans;
 
+import NoyauFonctionnel.Reservations;
+import dao.reservationDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;

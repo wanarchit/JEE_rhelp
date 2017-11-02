@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NoyauFonctionnel;
+package dao;
 
+import NoyauFonctionnel.Employes;
+import NoyauFonctionnel.Userinfo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,16 +35,19 @@ public class employeDAO {
         System.out.println("query = "+query.toString());
         try{
             Employes var = (Employes) query.getSingleResult();
-            System.out.println("ok");
             return var;
         } catch (NoResultException e){
-            System.out.println("pas ok");
             System.err.println("pas d'employé avec cet id");
             return null;
         }
     }
     
     public void saveEmploye(Employes employe) {
+        Userinfo newUser = new Userinfo();
+        newUser.setMdp("rhelp");
+        newUser.setUser(employe.getMail());
+        newUser.setNumSS(employe);
+        em.persist(newUser);
         em.persist(employe);
         em.flush();
     }
