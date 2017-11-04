@@ -66,8 +66,12 @@
                             </p:calendar>
                             <p:message for="dateF" />
 
-                            <h:inputHidden id="numSS" value="#{employeControler.selectedEmp}" converter="convertEmpNumss" binding="#{numSS}" />
-                            <p:message for="numSS" /><p:message for="numSS" />
+                            <p:outputLabel for="numSS" value="Choisir un employé :" />
+                            <p:selectOneMenu id="numSS" value="#{reservations.numSS}" converter="convertEmpNumss" binding="#{numSS}">
+                                <f:selectItem itemLabel="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom} #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}" 
+                                              itemValue="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().numSS}"/>
+                            </p:selectOneMenu>
+                            <p:message for="numSS" />
 
                             <p:outputLabel for="plaque" value="Choisir un véhicule :" />
                             <p:selectOneMenu id="plaque" value="#{reservations.plaque}" converter="convertVoitPlaque" binding="#{plaque}" filter="true" filterMatchMode="contains">
@@ -76,7 +80,7 @@
                             <p:message for="plaque" />
 
                             <f:facet name="footer">
-                                <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{reservationControler.addResaEmp(reservations,employeControler.selectedEmp)}"/></center>
+                                <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{reservationControler.addResaEmp(reservations)}"/></center>
                             </f:facet>
                         </h:panelGrid>
                     </h:form></center>
