@@ -8,6 +8,9 @@ package beans;
 import NoyauFonctionnel.Voiture;
 import dao.voitureDAO;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -69,5 +72,23 @@ public class voitureControler implements Serializable{
     
     public Voiture getOneVoiture(String pla){
         return dao.getOneVoiture(pla);
+    }
+    
+    public ArrayList<Voiture> getVoitureRevis(){
+        ArrayList<Voiture> voitRevis = new ArrayList();
+        List<Voiture> listvoit = getVoitures();
+        
+        Date currentDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        cal.add(Calendar.DATE, -15);
+        Date dateFinale = cal.getTime();
+                
+        for (Voiture voi : listvoit) {
+            if (voi.getDateRevision().after(dateFinale)) {
+               voitRevis.add(voi);
+            }
+        }
+        return voitRevis;
     }
 }
