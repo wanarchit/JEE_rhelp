@@ -39,8 +39,13 @@ public class reservationControler implements Serializable{
         return dao.getReservationEmp(secu);
     }
     
-    public void addResa(Reservations resa){
-        resa.setEtat("Validé");
+    public void addResaAdmin(Reservations resa){
+        resa.setEtat("Demande validée");
+        dao.saveReservation(resa);
+    }
+    
+    public void addResaEmp(Reservations resa){
+        resa.setEtat("Demande à valider");
         dao.saveReservation(resa);
     }
     
@@ -49,7 +54,7 @@ public class reservationControler implements Serializable{
     }
     
     public void cancelResa(Reservations selectResa){
-        if (selectResa.getEtat().equals("A valider")){
+        if (selectResa.getEtat().equals("Demande à valider")){
             dao.remove(selectResa.getIdResa());
         }
     }

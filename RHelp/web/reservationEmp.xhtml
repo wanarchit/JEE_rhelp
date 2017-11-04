@@ -9,7 +9,7 @@
         <title>Les réservations</title>
     </h:head>
     <h:body>
-        <h:graphicImage value="/Images/banniere3.png" />
+        <h:graphicImage value="/Images/banniere3.jpg" />
         <h:form>
             <p:menubar>
                 <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueilEmp.xhtml" />
@@ -46,7 +46,7 @@
                 </p:dataTable>
                     </h:form></center>
                 </p:tab>
-                <p:tab title="Ajouter une réservation">
+                <p:tab title="Faire une réservation">
                     <center><h:form>
                         <h:panelGrid columns="3" cellpadding="5">     
 
@@ -61,16 +61,10 @@
                             <f:validator validatorId="dateRangeResaValidator"/>
                             <f:attribute name="dateD" value="#{dateD}" />
                             <f:attribute name="resa" value="#{reservationControler.reservations}" />
-                            <f:attribute name="numSS" value="#{numSS}" />
+                            <f:attribute name="numSS" value="#{employeControler.selectedEmp}" />
                             <f:attribute name="plaque" value="#{plaque}" />
                             </p:calendar>
                             <p:message for="dateF" />
-
-                            <p:outputLabel for="numSS" value="Choisir un employé :" />
-                            <p:selectOneMenu id="numSS" value="#{reservations.numSS}" converter="convertEmpNumss" binding="#{numSS}" filter="true" filterMatchMode="contains">
-                                <f:selectItems value="#{employeControler.employes}" var="emp" itemLabel="#{emp.prenom} #{emp.nom}" itemValue="#{emp.numSS}"/>
-                            </p:selectOneMenu>
-                            <p:message for="numSS" />
 
                             <p:outputLabel for="plaque" value="Choisir un véhicule :" />
                             <p:selectOneMenu id="plaque" value="#{reservations.plaque}" converter="convertVoitPlaque" binding="#{plaque}" filter="true" filterMatchMode="contains">
@@ -79,15 +73,18 @@
                             <p:message for="plaque" />
 
                             <f:facet name="footer">
-                                <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{reservationControler.addResa(reservations)}"/></center>
+                                <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{reservationControler.addResaEmp(reservations)}"/></center>
                             </f:facet>
                         </h:panelGrid>
                     </h:form></center>
                 </p:tab>
+                <p:tab title="Rendre un véhicule">
+                    <center>TOTO</center>
+                </p:tab>
             </p:accordionPanel>
         <br/><br/><br/><br/>
         <p:separator />
-        footer toto
+        <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>
         <p:separator />
     </h:body>
 </html>
