@@ -23,6 +23,9 @@ public class userInfoControler implements Serializable{
     @EJB
     private userInfoDAO dao;
     private Userinfo selectedUserInfo;
+    private String mdpConf;
+
+    
     /**
      * Creates a new instance of employeControler
      */
@@ -32,17 +35,21 @@ public class userInfoControler implements Serializable{
     public List<Userinfo> getUsersInfos() {
         return dao.getAll();
     }
-    
-    
-    public Userinfo getSelectedUser() {
-        if (selectedUserInfo == null){
-            selectedUserInfo = getUsersInfos().get(0);
-        }
+
+    public Userinfo getSelectedUserInfo() {
         return selectedUserInfo;
     }
 
-    public void setSelectedEmp(Userinfo selectedUI) {
-        this.selectedUserInfo = selectedUI;
+    public void setSelectedUserInfo(Userinfo selectedUserInfo) {
+        this.selectedUserInfo = selectedUserInfo;
+    }
+    
+    public String getMdpConf() {
+        return mdpConf;
+    }
+
+    public void setMdpConf(String mdpConf) {
+        this.mdpConf = mdpConf;
     }
     
     public void updateUserInfo(Userinfo ui){

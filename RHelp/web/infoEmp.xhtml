@@ -15,7 +15,7 @@
             <p:menubar>
                 <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueilEmp.xhtml" />
                 <p:menuitem value="&nbsp; Mes informations" icon="fa fa-user fa-fw" url="infoEmp.xhtml"/>
-                <p:menuitem value="&nbsp; Réserver une voiture" icon="fa fa-car fa-fw" url="accueilEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Gérer mes réservations" icon="fa fa-car fa-fw" url="reservationEmp.xhtml"/>
                 <f:facet name="options">
                     <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
@@ -25,91 +25,82 @@
         <p>Bonjour, #{loginBean.uname}</p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
         <br/>
         <p:growl id="growl" sticky="false" />
-            <p:tabView orientation="Right">
-                <p:tab title="Voir mes informations personnelles">
-                    <center>
-                        <p:separator/>
-                        <h3>Informations personnelles</h3>
-                        <p:separator/>
-                        <h:panelGrid columns="2" cellpadding="15">
-                            <h:outputText value="Numéro de sécurité social :" />
-                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().numSS}" />
+        <p:tabView orientation="Right">
+            <p:tab title="Voir mes informations personnelles">
+                <center>
+                    <p:separator/>
+                    <h3>Informations personnelles</h3>
+                    <p:separator/>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Numéro de sécurité social :" />
+                        <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().numSS}" />
 
-                            <h:outputText value="Nom :" />
-                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}" />
+                        <h:outputText value="Nom :" />
+                        <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}" />
 
-                            <h:outputText value="Prénom :" />
-                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}" />
+                        <h:outputText value="Prénom :" />
+                        <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}" />
 
-                            <h:outputText value="Sexe :" />
-                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().displaySexe2(userInfoControler.getUserConnecte(loginBean.uname).getNumSS().sexe)}" />
+                        <h:outputText value="Sexe :" />
+                        <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().displaySexe2(userInfoControler.getUserConnecte(loginBean.uname).getNumSS().sexe)}" />
 
-                            <h:outputText value="Date de naissance :" />
-                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().displayDate(userInfoControler.getUserConnecte(loginBean.uname).getNumSS().dateNaissance)}" />
+                        <h:outputText value="Date de naissance :" />
+                        <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().displayDate(userInfoControler.getUserConnecte(loginBean.uname).getNumSS().dateNaissance)}" />
 
-                            <h:outputText value="Adresse :" />
-                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().adresse}" />
-                        </h:panelGrid>
-                        <br/><br/>
-                        
-                        <p:separator/>
-                        <h3>Informations de connexion</h3>
-                        <p:separator/>
-                        <h:panelGrid columns="2" cellpadding="15">
-                            <h:outputText value="Login :" />
-                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).user}" />
+                        <h:outputText value="Adresse :" />
+                        <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().adresse}" />
+                    </h:panelGrid>
+                    <br/>
 
-                            <h:outputText value="Email :" />
-                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().mail}" />
-                        </h:panelGrid>
-                    </center>
-                </p:tab>
-                <p:tab title="Modifier mes informations personnelles">
-                    <center>
-                        <p:panelGrid styleClass="ui-noborder" >
-                            <h:form id="majLogin">
-                        <p:row >
-                            
-                            <p:column><h:outputLabel for="loginNew" value="Modifier mon login :" /></p:column>
-                            <p:column><h:inputText id="loginNew" value="Nouveau login" /></p:column>
-                            <p:column><p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
-                                                  ajax="false"/></p:column>
-                            <p:column><p:message for="loginNew"/></p:column>
-                            
-                        </p:row>
-                            </h:form>
-                            <h:form id="majMail">
-                        <p:row style="height: 100px">
-                            
-                            <p:column><h:outputLabel for="mailNew" value="Modifier mon email :" /></p:column>
-                            <p:column><h:inputText id="mailNew" value="#{employeControler.selectedEmp.mail}">
-                                    <f:validator validatorId="emailEmployeValidator"/>
-                                <f:attribute name="employe" value="#{employeControler.employes}" />
-                                </h:inputText></p:column>
-                            <p:column><p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
-                                                  ajax="false"/></p:column>
-                            <p:column><p:message for="mailNew"/></p:column>
-                            
-                        </p:row>
-                                </h:form>
-                            <h:form id="majMdp">
-                        <p:row style="height: 50px">
-                            <p:column><h:outputLabel for="mdpNew" value="Modifier mon mot de passe :" /></p:column>
-                            <p:column><h:inputText id="mdpNew" value="Nouveau mot de passe" /></p:column>
-                            <p:column rowspan="2"><p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
-                                                  ajax="false"/></p:column>
-                            <p:column rowspan="2"><p:message for="mdpNew"/></p:column>
+                    <p:separator/>
+                    <h3>Informations de connexion</h3>
+                    <p:separator/>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputText value="Login :" />
+                        <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).user}" />
+
+                        <h:outputText value="Email :" />
+                        <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().mail}" />
+                    </h:panelGrid>
+                </center>
+            </p:tab>
+            <p:tab title="Modifier mes informations de connexion">
+                <center>
+                    <p:panelGrid styleClass="ui-noborder" >
+                        <h:form id="majMail">
+                            <p:row>
+
+                                <p:column><h:outputLabel for="mailNew" value="Modifier mon email :" /></p:column>
+                                <p:column><p:inputText id="mailNew" value="#{employeControler.selectedEmp.mail}">
+                                        <f:validator validatorId="emailEmployeValidator"/>
+                                        <f:attribute name="employe" value="#{employeControler.employes}" />
+                                    </p:inputText></p:column>
+                                <p:column><p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
+                                                           ajax="false"/></p:column>
+                                <p:column><p:message for="mailNew"/></p:column>
+
+                            </p:row>
+                        </h:form>
+                        <h:form id="majMdp">
+                            <p:row>
+                                <p:column><h:outputLabel for="mdpNew" value="Modifier mon mot de passe :" /></p:column>
+                                <p:column><p:password id="mdpNew" value="#{loginBean.password}" match="mdpConf" label="Password 1" 
+                                                      required="true" feedback="true" inline="true" validatorMessage="Les mots de passes entrés sont différents">
+                                    </p:password></p:column>
+                                <p:column rowspan="2"><p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{loginBean.updatePassword()}" 
+                                                                       ajax="false"/></p:column>
+                                <p:column rowspan="2"><p:message for="mdpNew"/></p:column>
                             </p:row>
                             <p:row >
-                            <p:column><h:outputLabel for="mdpConf" value="Confirmer mon mot de passe :" /></p:column>
-                            <p:column><h:inputText id="mdpConf" value="Confirmation" /></p:column>
-                            
-                        </p:row>
-                                </h:form>
+                                <p:column><h:outputLabel for="mdpConf" value="Confirmer mon mot de passe :" /></p:column>
+                                <p:column><p:password id="mdpConf" value="#{loginBean.password}" label="Password 2" required="true"/></p:column>
+
+                            </p:row>
+                        </h:form>
                     </p:panelGrid>
-                        </center>
-                </p:tab>
-            </p:tabView>
+                </center>
+            </p:tab>
+        </p:tabView>
         <br/><br/><br/><br/>
         <p:separator />
         footer toto
@@ -117,4 +108,15 @@
     </h:body>
 </html>
 
-<!-- -->
+<!-- <h:form id="majLogin">
+                            <p:row >
+
+                                <p:column><h:outputLabel for="loginNew" value="Modifier mon login :" /></p:column>
+                                <p:column><h:inputText id="loginNew" value="{loginBean.uname}" >
+                                        <f:validator validatorId="loginUserValidator"/>
+                                        <f:attribute name="employe" value="{employeControler.employes}" /></h:inputText></p:column>
+                                <p:column><p:commandButton icon="ui-icon-circle-check" value="Valider" action="{loginBean.updateLogin()}" 
+                                                           ajax="false"/></p:column>
+                                <p:column><p:message for="loginNew"/></p:column>
+                            </p:row>
+                        </h:form>-->

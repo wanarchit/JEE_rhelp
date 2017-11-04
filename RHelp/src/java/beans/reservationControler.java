@@ -48,7 +48,16 @@ public class reservationControler implements Serializable{
         dao.remove(idR);
     }
     
+    public void cancelResa(Reservations selectResa){
+        if (selectResa.getEtat().equals("A valider")){
+            dao.remove(selectResa.getIdResa());
+        }
+    }
+    
     public Reservations getSelectedResa() {
+        if (selectedResa == null){
+            selectedResa = getReservations().get(0);
+        }
         return selectedResa;
     }
 

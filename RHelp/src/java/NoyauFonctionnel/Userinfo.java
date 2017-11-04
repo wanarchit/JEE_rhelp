@@ -55,6 +55,8 @@ public class Userinfo implements Serializable {
     @ManyToOne(optional = false)
     private Employes numSS;
 
+    
+
     public Userinfo() {
     }
 

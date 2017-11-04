@@ -43,7 +43,12 @@ public class LoginBean implements Serializable {
     public void setUname(String uname) {
         this.uname = uname;
     }
- 
+    
+    public void updatePassword(){
+       UserDAO.updatepwd(uname,password);
+    }
+    
+    
     public String loginProject() {
         boolean result = UserDAO.login(uname, password);
         
