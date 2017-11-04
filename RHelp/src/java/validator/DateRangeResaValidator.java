@@ -46,6 +46,7 @@ public class DateRangeResaValidator implements Validator{
         
         UIInput numSSUI = (UIInput) component.getAttributes().get("numSS");
         String numSSValue = (String) numSSUI.getSubmittedValue();
+        System.out.println("numSS = "+numSSValue);
         List<Reservations> listResaUI = (List<Reservations>)component.getAttributes().get("resa");
         boolean valid = true;
         String nomEmpl = "";

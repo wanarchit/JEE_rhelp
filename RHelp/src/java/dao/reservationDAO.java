@@ -48,8 +48,15 @@ public class reservationDAO {
     }   
     
     public void saveReservation(Reservations resa) {
+        System.out.println("DAO");
+        System.out.println(resa.toString());
+        System.out.println(resa.getDateD().toString());
+        System.out.println(resa.getNumSS().toString());
+        System.out.println(resa.getPlaque().toString());
         em.persist(resa);
+        System.out.println("DAO 1");
         em.flush();
+        System.out.println("DAO ok");
     }
     
     public void remove(int idR){

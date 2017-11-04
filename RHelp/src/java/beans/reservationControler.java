@@ -5,6 +5,7 @@
  */
 package beans;
 
+import NoyauFonctionnel.Employes;
 import NoyauFonctionnel.Reservations;
 import dao.reservationDAO;
 import java.io.Serializable;
@@ -44,9 +45,18 @@ public class reservationControler implements Serializable{
         dao.saveReservation(resa);
     }
     
-    public void addResaEmp(Reservations resa){
+    public void addResaEmp(Reservations resa, Employes emp){
+        System.out.println("addResaEmp");
+        resa.setNumSS(emp);
+        System.out.println(resa.getNumSS().getNumSS());
+        
+        System.out.println("set 1 ok");
+        System.out.println("Etat = "+resa.getEtat());
         resa.setEtat("Demande à valider");
+        System.out.println("Etat = "+resa.getEtat());
+        System.out.println("set 2 ok");
         dao.saveReservation(resa);
+        System.out.println("add ok");
     }
     
     public void removeResa(int idR){

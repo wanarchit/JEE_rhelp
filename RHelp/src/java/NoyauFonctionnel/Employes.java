@@ -42,13 +42,7 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "Employes.findByMail", query = "SELECT e FROM Employes e WHERE e.mail = :mail")})
 
 public class Employes implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numSS")
-    private List<Userinfo> userinfoList;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numSS")
-    private List<Reservations> reservationsList;
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -85,6 +79,10 @@ public class Employes implements Serializable {
     @Size(min = 1, max = 100, message = "Vous devez renseigner l'email")
     @Column(name = "mail")
     private String mail;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numSS")
+    private List<Reservations> reservationsList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numSS")
+    private List<Userinfo> userinfoList;
 
     public Employes() {
     }
