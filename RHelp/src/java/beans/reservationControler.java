@@ -19,58 +19,80 @@ import javax.faces.view.ViewScoped;
  */
 @Named(value = "reservationControler")
 @ViewScoped
-public class reservationControler implements Serializable{
+public class reservationControler implements Serializable {
 
     @EJB
     private reservationDAO dao;
     private Reservations selectedResa;
-    
+
     /**
      * Creates a new instance of reservationControler
      */
     public reservationControler() {
     }
-    
+
     public List<Reservations> getReservations() {
         return dao.getAll();
     }
-    
-    public List<Reservations> getReservationsEmp(String secu){
+
+    public List<Reservations> getReservationsEmp(String secu) {
         return dao.getReservationEmp(secu);
     }
-    
-    public void addResaAdmin(Reservations resa){
+
+    public void addResaAdmin(Reservations resa) {
         resa.setEtat("Demande validée");
         dao.saveReservation(resa);
     }
-    
-    public void addResaEmp(Reservations resa){
+
+    public void addResaEmp(Reservations resa) {
         resa.setEtat("Demande à valider");
         dao.saveReservation(resa);
     }
-    
-    public void removeResa(int idR){
+
+    public void removeResa(int idR) {
         dao.remove(idR);
     }
-    
-    public void cancelResa(Reservations selectResa){
-        if (selectResa.getEtat().equals("Demande à valider")){
+
+    public void cancelResa(Reservations selectResa) {
+        if (selectResa.getEtat().equals("Demande à valider")) {
             dao.remove(selectResa.getIdResa());
         }
     }
-    
+
     public Reservations getSelectedResa() {
-        if (selectedResa == null){
+        if (selectedResa == null) {
             selectedResa = getReservations().get(0);
         }
         return selectedResa;
     }
 
+    public int getResaDemAVal() {
+        int i = 0;
+        List<Reservations> listResa = getReservations();
+        for (Reservations resa : listResa) {
+            if (resa.getEtat().equals("Demande à valider")){
+                i++;
+            }
+        }
+        return i;
+    }
+    
+    public int getResaRetAVal() {
+        int i = 0;
+        List<Reservations> listResa = getReservations();
+        for (Reservations resa : listResa) {
+            if (resa.getEtat().equals("Retour à valider")) {
+                i++;
+            }
+        }
+        return i;
+    }
+
     public void setSelectedResa(Reservations selectedResa) {
         this.selectedResa = selectedResa;
     }
-    
-    public void updateResa(Reservations resa){
+
+    public void updateResa(Reservations resa) {
         dao.updateResa(resa);
     }
 }
