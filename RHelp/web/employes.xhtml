@@ -22,7 +22,7 @@
             </p:menubar>
         </h:form>
         <center><h1><font color = "blue"><u>Gestion des employés</u></font></h1></center>
-        <p>Welcome, #{loginBean.uname}</p>
+        <p>Bonjour, #{loginBean.uname}</p>
         <br/><br/>
         <h:form id="form">
             <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"
@@ -98,16 +98,19 @@
             </p:dialog>
         </h:form>
 
-        <br/>
-        <p:messages autoUpdate="true"/>
-        <br/>
+        <br/><br/>
         <h:form id="formAdd">
+            <p:growl id="growl" sticky="false" />
             <p:accordionPanel activeIndex="null">
                 <p:tab title="Ajouter un employé">
+                    <p:messages autoUpdate="true"/>
                     <center>
                         <h:panelGrid columns="3" cellpadding="5">
                             <h:outputLabel for="numSS" value="Numéro SS :"/>
-                            <p:inputMask id="numSS" value = "#{employes.numSS}" required="true" label="Numéro SS" mask="9 99 99 99 999 999 99"/>
+                            <p:inputMask id="numSS" value = "#{employes.numSS}" required="true" label="Numéro SS" mask="9 99 99 99 999 999 99">
+                                <f:validator validatorId="numSSEmployeValidator"/>
+                                <f:attribute name="employe" value="#{employeControler.employes}" />
+                            </p:inputMask>
                             <p:message for="numSS"/>                
 
                             <p:outputLabel for="prenom" value="Prénom :" /><p:inputText id="prenom" value = "#{employes.prenom}"/>
@@ -132,8 +135,9 @@
                             <p:message for="adr"/>  
 
                             <p:outputLabel for="mail" value="Email :" />
-                            <p:inputText id="mail" value="#{employes.mail}" validatorMessage="Le format de l'adresse n'est pas correct">
-                                <f:validateRegex pattern="^[a-zA-Z1-9\.\-\_]+\@[a-zA-Z]+\.[a-zA-Z]+$" />
+                            <p:inputText id="mail" value="#{employes.mail}">
+                                <f:validator validatorId="emailEmployeValidator"/>
+                                <f:attribute name="employe" value="#{employeControler.employes}" />
                             </p:inputText>
                             <p:message for="mail"/>
 

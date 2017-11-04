@@ -6,6 +6,7 @@
 package NoyauFonctionnel;
 
 import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "userinfo")
+@ManagedBean
 @NamedQueries({
     @NamedQuery(name = "Userinfo.findAll", query = "SELECT u FROM Userinfo u")
     , @NamedQuery(name = "Userinfo.findById", query = "SELECT u FROM Userinfo u WHERE u.id = :id")

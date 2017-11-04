@@ -12,10 +12,9 @@
         <h:graphicImage value="/Images/banniere3.png" />
         <h:form>
             <p:menubar>
-                <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueil.xhtml" />
-                <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="employes.xhtml"/>
-                <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="voitures.xhtml"/>
-                <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="reservation.xhtml"/>
+                <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueilEmp.xhtml" />
+                <p:menuitem value="&nbsp; Mes informations" icon="fa fa-user fa-fw" url="infoEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Réserver une voiture" icon="fa fa-car fa-fw" url="accueilEmp.xhtml"/>
                 <f:facet name="options">
                     <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
@@ -27,7 +26,7 @@
         Bienvenue sur l'application RHelp ! 
         <br/>     
             <p>Bonjour, #{loginBean.uname}</p>
-        Vous avez du travail à faire !
+        Mettez à jour vos informations.
         <br/><br/><br/><br/>
         <p:separator />
         footer toto

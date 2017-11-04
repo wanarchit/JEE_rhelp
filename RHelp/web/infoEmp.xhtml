@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Les employés</title>
+    </h:head>
+    <h:body>
+        <h:graphicImage value="/Images/banniere3.png" />
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueilEmp.xhtml" />
+                <p:menuitem value="&nbsp; Mes informations" icon="fa fa-user fa-fw" url="infoEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Réserver une voiture" icon="fa fa-car fa-fw" url="accueilEmp.xhtml"/>
+                <f:facet name="options">
+                    <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
+                </f:facet>
+            </p:menubar>
+        </h:form>
+        <center><h1><font color = "blue"><u>Mes informations personnelles</u></font></h1></center>
+        <p>Bonjour, #{loginBean.uname}</p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
+        <br/>
+        <p:growl id="growl" sticky="false" />
+            <p:tabView orientation="Right">
+                <p:tab title="Voir mes informations personnelles">
+                    <center>
+                        <p:separator/>
+                        <h3>Informations personnelles</h3>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="15">
+                            <h:outputText value="Numéro de sécurité social :" />
+                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().numSS}" />
+
+                            <h:outputText value="Nom :" />
+                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}" />
+
+                            <h:outputText value="Prénom :" />
+                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}" />
+
+                            <h:outputText value="Sexe :" />
+                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().displaySexe2(userInfoControler.getUserConnecte(loginBean.uname).getNumSS().sexe)}" />
+
+                            <h:outputText value="Date de naissance :" />
+                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().displayDate(userInfoControler.getUserConnecte(loginBean.uname).getNumSS().dateNaissance)}" />
+
+                            <h:outputText value="Adresse :" />
+                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().adresse}" />
+                        </h:panelGrid>
+                        <br/><br/>
+                        
+                        <p:separator/>
+                        <h3>Informations de connexion</h3>
+                        <p:separator/>
+                        <h:panelGrid columns="2" cellpadding="15">
+                            <h:outputText value="Login :" />
+                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).user}" />
+
+                            <h:outputText value="Email :" />
+                            <h:outputText value="#{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().mail}" />
+                        </h:panelGrid>
+                    </center>
+                </p:tab>
+                <p:tab title="Modifier mes informations personnelles">
+                    <center>
+                        <p:panelGrid styleClass="ui-noborder" >
+                            <h:form id="majLogin">
+                        <p:row >
+                            
+                            <p:column><h:outputLabel for="loginNew" value="Modifier mon login :" /></p:column>
+                            <p:column><h:inputText id="loginNew" value="Nouveau login" /></p:column>
+                            <p:column><p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
+                                                  ajax="false"/></p:column>
+                            <p:column><p:message for="loginNew"/></p:column>
+                            
+                        </p:row>
+                            </h:form>
+                            <h:form id="majMail">
+                        <p:row style="height: 100px">
+                            
+                            <p:column><h:outputLabel for="mailNew" value="Modifier mon email :" /></p:column>
+                            <p:column><h:inputText id="mailNew" value="#{employeControler.selectedEmp.mail}">
+                                    <f:validator validatorId="emailEmployeValidator"/>
+                                <f:attribute name="employe" value="#{employeControler.employes}" />
+                                </h:inputText></p:column>
+                            <p:column><p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
+                                                  ajax="false"/></p:column>
+                            <p:column><p:message for="mailNew"/></p:column>
+                            
+                        </p:row>
+                                </h:form>
+                            <h:form id="majMdp">
+                        <p:row style="height: 50px">
+                            <p:column><h:outputLabel for="mdpNew" value="Modifier mon mot de passe :" /></p:column>
+                            <p:column><h:inputText id="mdpNew" value="Nouveau mot de passe" /></p:column>
+                            <p:column rowspan="2"><p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
+                                                  ajax="false"/></p:column>
+                            <p:column rowspan="2"><p:message for="mdpNew"/></p:column>
+                            </p:row>
+                            <p:row >
+                            <p:column><h:outputLabel for="mdpConf" value="Confirmer mon mot de passe :" /></p:column>
+                            <p:column><h:inputText id="mdpConf" value="Confirmation" /></p:column>
+                            
+                        </p:row>
+                                </h:form>
+                    </p:panelGrid>
+                        </center>
+                </p:tab>
+            </p:tabView>
+        <br/><br/><br/><br/>
+        <p:separator />
+        footer toto
+        <p:separator />
+    </h:body>
+</html>
+
+<!-- -->

@@ -51,19 +51,17 @@ public class LoginBean implements Serializable {
             // get Http Session and store username
             HttpSession session = Util.getSession();
             session.setAttribute("username", uname);
-            
-            return "accueil";
+            if(uname.equals("admin")){
+                return "accueil";
+            }else{
+                return "accueilEmp";
+            }
         } else {
- 
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Invalid Login!",
                     "Please Try Again!"));
- 
-            // invalidate session, and redirect to other pages
- 
-            //message = "Invalid Login. Please Try Again!";
             return "login";
         }
     }

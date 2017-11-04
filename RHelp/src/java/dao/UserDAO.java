@@ -1,13 +1,8 @@
 package dao;
-import NoyauFonctionnel.Userinfo;
 import java.sql.*;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
   
 public class UserDAO {
     
-    @PersistenceContext(unitName = "RHelpPU")
-    private EntityManager em;
     
      public static boolean login(String user, String password) {
         Connection con = null;

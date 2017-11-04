@@ -52,23 +52,23 @@ public class Employes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @NotNull (message="Vous devez saisir un numéro de sécurité social")
     @Size(min = 1, max = 25)
     @Column(name = "numSS")
     private String numSS;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message="Vous devez saisir un nom")
     @Column(name = "nom")
     private String nom;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message="Vous devez saisir un prénom")
     @Column(name = "prenom")
     private String prenom;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message="Vous devez saisir une adresse")
     @Column(name = "adresse")
     private String adresse;
     @Basic(optional = false)
@@ -82,7 +82,7 @@ public class Employes implements Serializable {
     private boolean sexe;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 100, message = "Vous devez renseigner l'email")
     @Column(name = "mail")
     private String mail;
 
@@ -162,6 +162,14 @@ public class Employes implements Serializable {
         }
     }
     
+    public String displaySexe2(Boolean sexe){
+        if(sexe){
+            return "Homme";
+        }else{
+            return "Femme";
+        }
+    }
+    
     public String getMail() {
         return mail;
     }
@@ -201,24 +209,6 @@ public class Employes implements Serializable {
 
     public void setReservationsList(List<Reservations> reservationsList) {
         this.reservationsList = reservationsList;
-    }
-
-    public boolean isReserve(Date dateDemandD, Date dateDemandF){
-        boolean valid = true;
-        for (Reservations resa : getReservationsList()) {
-            if (resa.getNumSS().equals(this)) {
-                if(resa.getDateD().before(dateDemandD) && resa.getDateF().after(dateDemandD)){
-                    valid = false;
-                }
-                if(resa.getDateD().after(dateDemandD) && resa.getDateF().before(dateDemandF)){
-                    valid = false;
-                }
-                if(resa.getDateD().before(dateDemandF) && resa.getDateF().after(dateDemandF)){
-                    valid = false;
-                }
-            }
-        }
-        return valid;
     }
 
     public List<Userinfo> getUserinfoList() {

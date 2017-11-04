@@ -30,9 +30,7 @@ public class employeDAO {
     }
     
     public Employes getOneEmploye(String id){
-        System.out.println("getOnEmp ok");
         Query query = em.createNamedQuery("Employes.findByNumSS").setParameter("numSS", id);
-        System.out.println("query = "+query.toString());
         try{
             Employes var = (Employes) query.getSingleResult();
             return var;

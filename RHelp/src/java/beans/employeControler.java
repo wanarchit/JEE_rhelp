@@ -7,11 +7,12 @@ package beans;
 
 import NoyauFonctionnel.Employes;
 import NoyauFonctionnel.Userinfo;
-import dao.UserDAO;
 import dao.employeDAO;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 
@@ -25,7 +26,6 @@ public class employeControler implements Serializable{
 
     @EJB
     private employeDAO dao;
-    private UserDAO daoUser;
     private Employes selectedEmp;
     /**
      * Creates a new instance of employeControler
@@ -37,24 +37,23 @@ public class employeControler implements Serializable{
         return dao.getAll();
     }
     
-    public Employes getOneEmploye(String idE) {
-        
-        System.out.println("idE = "+idE);
-        if(dao == null){
-            System.out.println("DAO null");
-        }else{
-            System.out.println("DAO non null");
-        }
-        Employes emp = dao.getOneEmploye(idE);
-        return emp;
-    }
-    
     public void addEmp(Employes emp){
         dao.saveEmploye(emp);
     }
     
     public void removeEmp(String idE){
-        dao.remove(idE);
+        boolean valid = true;
+        for (Userinfo ui : selectedEmp.getUserinfoList()) {
+            if (ui.getUser().equals("admin")){
+                valid = false;
+            }
+        }
+        if(valid){
+            dao.remove(idE);
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!",
+                    "Cette personne à un profil ADMIN lié. Il est impossible de la supprimer."));
+        }
     }
     
     public Employes getSelectedEmp() {
