@@ -6,6 +6,8 @@
 package dao;
 
 import NoyauFonctionnel.Reservations;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -45,7 +47,7 @@ public class reservationDAO {
             System.err.println("Pas de réservation pour cet employé");
             return null;
         }
-    }   
+    }
     
     public void saveReservation(Reservations resa) {
         em.persist(resa);

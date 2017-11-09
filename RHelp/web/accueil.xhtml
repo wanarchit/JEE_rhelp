@@ -38,7 +38,7 @@
                     <p:row>
                         <center><p:column><p:graphicImage value="/Images/voiture_repa.png" /></p:column></center>
                         <p:column> 
-                            <p:dataList value="#{voitureControler.voitureRevis}" var="v" type="unordered">
+                            <p:dataList value="#{voitureControler.voitureRevis}" var="v" type="unordered" emptyMessage="Pas de révision prévues dans les 15 jours">
                                 <f:facet name="header">
                                     Liste des voitures à réviser prochainement
                                 </f:facet>

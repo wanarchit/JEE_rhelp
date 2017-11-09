@@ -23,46 +23,46 @@
         <center><h1><font color = "blue"><u>Gestion des réservations</u></font></h1></center>
         <p>Bonjour, #{loginBean.uname}</p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
         <br/>
-        <p:messages autoUpdate="true"/>
-            <p:accordionPanel activeIndex="null">
-                <p:tab title="Voir mes réservations">
-                    <center><h:form id="visuResa">
+        <p:accordionPanel activeIndex="null">
+            <p:tab title="Voir mes réservations">
+                <center><h:form id="visuResa">
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                         <p:dataTable value="#{reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS)}" 
-                                     selectionMode="single" selection="#{reservationControler.selectedResa}" var="r" rowKey="#{r.idResa}" >
-                    <p:column headerText="Période">
-                        <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
-                    </p:column>
-                    <p:column headerText="Voiture">
-                        <h:outputText value="#{r.plaque.marque} #{r.plaque.modele}" />
-                    </p:column>
-                    <p:column headerText="Etat de la demande">
-                        <h:outputText value="#{r.etat}" />
-                    </p:column>
+                                     selectionMode="single" selection="#{reservationControler.selectedResa}" var="r" rowKey="#{r.idResa}" emptyMessage="Pas de réservation">
+                            <p:column headerText="Période">
+                                <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
+                            </p:column>
+                            <p:column headerText="Voiture">
+                                <h:outputText value="#{r.plaque.marque} #{r.plaque.modele}" />
+                            </p:column>
+                            <p:column headerText="Etat de la demande">
+                                <h:outputText value="#{r.etat}" />
+                            </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="btnAnnuler" action="#{reservationControler.cancelResa(reservationControler.selectedResa)}" 
-                                     icon="ui-icon-close" value="Annuler réservation" ajax="false"/>
-                    Total : #{fn:length(reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS))} réservation(s)
-                </f:facet>
-                </p:dataTable>
+                                <p:commandButton id="btnAnnuler" actionListener="#{reservationControler.cancelResa(reservationControler.selectedResa)}" 
+                                                 icon="ui-icon-close" value="Annuler réservation"/>
+                                Total : #{fn:length(reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS))} réservation(s)
+                            </f:facet>
+                        </p:dataTable>
                     </h:form></center>
-                </p:tab>
-                <p:tab title="Faire une réservation">
-                    <center><h:form>
+            </p:tab>
+            <p:tab title="Faire une réservation">
+                <center><h:form>
                         <h:panelGrid columns="3" cellpadding="5">     
 
                             <p:outputLabel for="dateD" value="Date début :" />
                             <p:calendar id="dateD" value="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm" required="true" binding="#{dateD}">
-                            <p:ajax event="dateSelect" update="dateF" />
+                                <p:ajax event="dateSelect" update="dateF" />
                             </p:calendar>
                             <p:message for="dateD" />
 
                             <p:outputLabel for="dateF" value="Date fin :" />
                             <p:calendar id="dateF" value="#{reservations.dateF}" mindate="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm" required="true">
-                            <f:validator validatorId="dateRangeResaValidator"/>
-                            <f:attribute name="dateD" value="#{dateD}" />
-                            <f:attribute name="resa" value="#{reservationControler.reservations}" />
-                            <f:attribute name="numSS" value="#{numSS}" />
-                            <f:attribute name="plaque" value="#{plaque}" />
+                                <f:validator validatorId="dateRangeResaValidator"/>
+                                <f:attribute name="dateD" value="#{dateD}" />
+                                <f:attribute name="resa" value="#{reservationControler.reservations}" />
+                                <f:attribute name="numSS" value="#{numSS}" />
+                                <f:attribute name="plaque" value="#{plaque}" />
                             </p:calendar>
                             <p:message for="dateF" />
 
@@ -84,11 +84,29 @@
                             </f:facet>
                         </h:panelGrid>
                     </h:form></center>
-                </p:tab>
-                <p:tab title="Rendre un véhicule">
-                    <center>TOTO</center>
-                </p:tab>
-            </p:accordionPanel>
+            </p:tab>
+            <p:tab title="Rendre un véhicule">
+                <center><h:form id="formRendre">
+                        <p:messages for="btnRendre" id="messages" showDetail="false" autoUpdate="true" closable="true" />
+                        <p:dataTable id="dtTable" value="#{reservationControler.getVoitARendreEmp(employeControler.selectedEmp.numSS)}" 
+                                     selectionMode="single" selection="#{reservationControler.selectedResaRendre}" var="r" rowKey="#{r.idResa}" emptyMessage="Pas de véhicule à rendre." >
+                            <p:column headerText="Période">
+                                <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
+                            </p:column>
+                            <p:column headerText="Voiture">
+                                <h:outputText value="#{r.plaque.marque} #{r.plaque.modele}" />
+                            </p:column>
+                            <p:column headerText="Etat de la demande">
+                                <h:outputText value="#{r.etat}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="btnRendre" action="#{reservationControler.rendreVoit(reservationControler.selectedResaRendre)}" 
+                                                 icon="ui-icon-close" value="Rendre un véhicule" update="dtTable"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form></center>
+            </p:tab>
+        </p:accordionPanel>
         <br/><br/><br/><br/>
         <p:separator />
         <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>
