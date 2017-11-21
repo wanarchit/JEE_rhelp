@@ -25,7 +25,7 @@
         #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}</B></p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
         <br/>
         <p:messages autoUpdate="true" closable="true"/>
-        <p:accordionPanel activeIndex="null">
+        <p:accordionPanel id="accordion" activeIndex="null">
             <p:tab title="Voir mes réservations">
                 <center><h:form id="visuResa">
                         <p:dataTable value="#{reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS)}" 
@@ -93,13 +93,13 @@
             </p:tab>
             <p:tab title="Rendre un véhicule">
                 <center><h:form id="formRendre">
-                        <p:messages for="btnRendre" id="messages" showDetail="false" autoUpdate="true" closable="true" />
-                        <p:dataTable id="dtTable" value="#{reservationControler.getVoitARendreEmp(employeControler.selectedEmp.numSS)}" 
+                        <p:dataTable id="tableRetour" value="#{reservationControler.getVoitARendreEmp(employeControler.selectedEmp.numSS)}" 
                                      selectionMode="single" selection="#{reservationControler.selectedResaRendre}" var="r" rowKey="#{r.idResa}" 
                                      emptyMessage="Pas de véhicule à rendre." rows="10"
                          paginator="true" paginatorPosition="top"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15,20">
+                            <p:ajax event="rowSelect" update="accordion:formRendreVoi:diagRend"/>
                             <p:column headerText="Période">
                                 <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
                             </p:column>
@@ -110,25 +110,29 @@
                                 <h:outputText value="#{r.etat}" />
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="btnRendre" action="#{reservationControler.rendreVoit(reservationControler.selectedResaRendre)}" 
-                                                 icon="ui-icon-close" value="Rendre un véhicule" update="dtTable"/>
+                                <p:commandButton id="boutonUpdate" icon="ui-icon-arrowreturnthick-1-w" value="Rendre un véhicule" ajax="true" onclick="PF('diagRend').show();"/>
                             </f:facet>
                         </p:dataTable>
                     </h:form>
-                <h:form id="formUp">
-            <p:dialog id="diagUpdate" header="Rendre un véhicule" modal="true" widgetVar="diagUpdate" resizable="false">
-                <!--<p:messages autoUpdate="true"/>-->
-                <h:panelGrid columns="3" cellpadding="5">
-                    <p:outputLabel for="kmU" value="Nombre de kilomètres parcourus :" />
-                    <p:inputText id="kmU" value = "#{voitureControler.selectedVoi.kilometrage}">
-                        <f:convertNumber integerOnly="true"/>
-                    </p:inputText>
+                    
+                <h:form id="formRendreVoi">
+            <p:dialog id="diagRend" header="Rendre un véhicule" modal="true" widgetVar="diagRend" resizable="false">
+                <h:panelGrid columns="1" cellpadding="5" style="text-align: center;">
+                    <h:outputText value="Avant de rendre le véhicule vous devez préciser le nombre de kilomètre parcourus." />
                     <p:message for="kmU"/>
+                    <p:outputLabel for="kmU" value="Nombre de kilomètres parcourus :" />
+                    <p:inputText id="kmU" value = "#{reservationControler.selectedResaRendre.plaque.kilometrage}"
+                                 validatorMessage="La valeur entrée est inférieure au nombre de km de la voiture">
+                        <f:convertNumber integerOnly="true"/>
+                        <f:validateDoubleRange minimum="#{reservationControler.selectedResaRendre.plaque.kilometrage}" />
+                    </p:inputText>
 
                     <f:facet name="footer">
-                        <center> <p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
-                                                  ajax="false"/></center>
-                    </f:facet>  
+                       <center> <p:commandButton id="btnRendre" action="#{reservationControler.rendreVoit(reservationControler.selectedResaRendre)}" 
+                                icon="ui-icon-arrowreturnthick-1-w" value="Rendre un véhicule" update="accordion:formRendre:tableRetour"
+                                ajax="true" onclick="PF('diagRend').hide();" /></center>
+                    </f:facet>
+                    
                 </h:panelGrid>
             </p:dialog>
         </h:form>
