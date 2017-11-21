@@ -24,6 +24,7 @@
         <center><h1><font color = "blue"><u>Gestion des réservations</u></font></h1></center>
         <p>Bonjour, #{loginBean.uname}</p>
         <br/><br/>
+        <p:messages autoUpdate="true" closable="true"/>
         <h:form id="form">
             <p:messages for="btnAnnDdeVal" id="messages1" showDetail="false" autoUpdate="true" closable="true" />
             <p:messages for="btnValider" id="messages2" showDetail="false" autoUpdate="true" closable="true" />
@@ -65,10 +66,9 @@
         </h:form>
 
         <br/>
-        <p:messages autoUpdate="true" closable="true"/>
         <br/>
         <h:form id="formAdd">
-            <a name="anchor1"/>
+            <p:growl id="growl" sticky="false" />
             <p:accordionPanel activeIndex="null">
                 <p:tab title="Ajouter une réservation">
                     <center>

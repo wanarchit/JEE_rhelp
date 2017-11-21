@@ -39,6 +39,8 @@ public class employeControler implements Serializable{
     
     public void addEmp(Employes emp){
         dao.saveEmploye(emp);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        ""+emp.getPrenom()+" "+emp.getNom()+" a bien été enregistré(e).", ""));
     }
     
     public void removeEmp(String idE){
@@ -50,9 +52,11 @@ public class employeControler implements Serializable{
         }
         if(valid){
             dao.remove(idE);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        ""+selectedEmp.getPrenom()+" "+selectedEmp.getNom()+" a bien été supprimé(e).", ""));
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!",
-                    "Cette personne à un profil ADMIN lié. Il est impossible de la supprimer."));
+                    ""+selectedEmp.getPrenom()+" "+selectedEmp.getNom()+" à un profil ADMIN lié. Il est impossible de supprimer cet(te) employé(e)."));
         }
     }
     
@@ -69,6 +73,9 @@ public class employeControler implements Serializable{
     
     public void updateEmp(Employes emp){
         dao.updateEmp(emp);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Les informations de "+emp.getPrenom()+" "+emp.getNom()+" ont bien été mises à jour.", ""));
+        
     }
     
     

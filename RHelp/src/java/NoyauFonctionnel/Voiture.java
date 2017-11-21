@@ -47,18 +47,18 @@ public class Voiture implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @NotNull (message="Vous devez saisir un numéro de plaque d'immatriculation")
     @Size(min = 1, max = 15)
     @Column(name = "plaque")
     private String plaque;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50 , message="Vous devez saisir une marque")
     @Column(name = "marque")
     private String marque;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50 , message="Vous devez saisir un modèle")
     @Column(name = "modele")
     private String modele;
     @Basic(optional = false)
@@ -66,7 +66,7 @@ public class Voiture implements Serializable {
     @Column(name = "kilometrage")
     private int kilometrage;
     @Basic(optional = false)
-    @NotNull
+    @NotNull (message = "Vous devez renseigner la date de prochaine révision")
     @Column(name = "dateRevision")
     @Temporal(TemporalType.DATE)
     private Date dateRevision;

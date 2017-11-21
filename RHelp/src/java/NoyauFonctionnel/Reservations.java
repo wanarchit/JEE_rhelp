@@ -48,12 +48,12 @@ public class Reservations implements Serializable {
     @Column(name = "idResa")
     private Integer idResa;
     @Basic(optional = false)
-    @NotNull
+    @NotNull (message = "Vous devez renseigner la date et l'heure du début de la réservation")
     @Column(name = "dateD")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateD;
     @Basic(optional = false)
-    @NotNull
+    @NotNull (message = "Vous devez renseigner la date et l'heure de la fin de la réservation")
     @Column(name = "dateF")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateF;

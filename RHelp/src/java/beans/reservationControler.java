@@ -68,11 +68,15 @@ public class reservationControler implements Serializable {
     public void addResaAdmin(Reservations resa) {
         resa.setEtat("Demande validée");
         dao.saveReservation(resa);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "La demande de réservation du véhicule a bien été ajoutée et a été directement validée.", ""));
     }
 
     public void addResaEmp(Reservations resa) {
         resa.setEtat("Demande à valider");
         dao.saveReservation(resa);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "La demande de réservation du véhicule a bien été enregistrée. Une demande de validation à été envoyée à votre RH.", ""));
     }
 
     public void removeResa(int idR) {
@@ -82,18 +86,18 @@ public class reservationControler implements Serializable {
     public void cancelResaAdmin(Reservations selectResa) {
         if (selectResa.getEtat().equals("Demande à valider") || selectResa.getEtat().equals("Demande validée")) {
             dao.remove(selectResa.getIdResa());
-            FacesContext.getCurrentInstance().addMessage("btnRendre", new FacesMessage(FacesMessage.SEVERITY_INFO,
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "La demande de réservation a bien été supprimée.", ""));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Vous ne pouvez supprimer pas supprimer cette réservation car elle est en cours ou a déjà eu lieu.", ""));
+                    "Vous ne pouvez pas supprimer cette réservation car elle est en cours ou a déjà eu lieu.", ""));
         }
     }
     
     public void cancelResa(Reservations selectResa) {
         if (selectResa.getEtat().equals("Demande à valider")) {
             dao.remove(selectResa.getIdResa());
-            FacesContext.getCurrentInstance().addMessage("btnRendre", new FacesMessage(FacesMessage.SEVERITY_INFO,
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "La réservation a bien été annulée.", ""));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -150,14 +154,14 @@ public class reservationControler implements Serializable {
                     statut = "de la demande";
                 }
                 dao.updateResa(selectResa);
-                FacesContext.getCurrentInstance().addMessage("btnRendre", new FacesMessage(FacesMessage.SEVERITY_INFO,
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                         "La validation "+statut+" a bien été enregistrée.", ""));
             } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Une erreur s'est produite...", ""));
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage("btnRendre", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Vous ne pouvez pas valider une demande ou un retour déjà validé", ""));
         }
     }

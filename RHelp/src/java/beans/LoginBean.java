@@ -46,6 +46,8 @@ public class LoginBean implements Serializable {
     
     public void updatePassword(){
        UserDAO.updatepwd(uname,password);
+       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Votre mot de passe a bien été modifié", ""));
     }
     
     

@@ -25,6 +25,7 @@
         <p><B>Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
         #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}</B></p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
         <br/>
+        <p:messages autoUpdate="true" closable="true"/>
         <p:growl id="growl" sticky="false" />
         <p:tabView orientation="Right">
             <p:tab title="Voir mes informations personnelles">

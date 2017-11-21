@@ -24,10 +24,10 @@
         <p><B>Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
         #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}</B></p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
         <br/>
+        <p:messages autoUpdate="true" closable="true"/>
         <p:accordionPanel activeIndex="null">
             <p:tab title="Voir mes réservations">
                 <center><h:form id="visuResa">
-                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                         <p:dataTable value="#{reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS)}" 
                                      selectionMode="single" selection="#{reservationControler.selectedResa}" var="r" rowKey="#{r.idResa}" emptyMessage="Pas de réservation"
                                      rows="10"
@@ -53,6 +53,7 @@
             </p:tab>
             <p:tab title="Faire une réservation">
                 <center><h:form>
+                        <p:growl id="growl" sticky="false" />
                         <h:panelGrid columns="3" cellpadding="5">     
 
                             <p:outputLabel for="dateD" value="Date début :" />
@@ -113,7 +114,25 @@
                                                  icon="ui-icon-close" value="Rendre un véhicule" update="dtTable"/>
                             </f:facet>
                         </p:dataTable>
-                    </h:form></center>
+                    </h:form>
+                <h:form id="formUp">
+            <p:dialog id="diagUpdate" header="Rendre un véhicule" modal="true" widgetVar="diagUpdate" resizable="false">
+                <!--<p:messages autoUpdate="true"/>-->
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="kmU" value="Nombre de kilomètres parcourus :" />
+                    <p:inputText id="kmU" value = "#{voitureControler.selectedVoi.kilometrage}">
+                        <f:convertNumber integerOnly="true"/>
+                    </p:inputText>
+                    <p:message for="kmU"/>
+
+                    <f:facet name="footer">
+                        <center> <p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
+                                                  ajax="false"/></center>
+                    </f:facet>  
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+                </center>
             </p:tab>
         </p:accordionPanel>
         <br/><br/><br/><br/>

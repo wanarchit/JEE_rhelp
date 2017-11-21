@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 
@@ -49,10 +51,14 @@ public class voitureControler implements Serializable{
     public void addVoi(Voiture voi){
         voi.setDisponibilite(true);
         dao.saveVoiture(voi);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Le véhicule "+voi.getMarque()+" "+voi.getModele()+" à bien été ajouté.", ""));
     }
     
     public void removeVoi(String idV){
         dao.remove(idV);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Le véhicule "+selectedVoi.getMarque()+" "+selectedVoi.getModele()+" à bien été supprimé.", ""));
     }
     
     public Voiture getSelectedVoi() {
@@ -68,6 +74,8 @@ public class voitureControler implements Serializable{
     
     public void updateVoi(Voiture voi){
         dao.updateVoi(voi);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                    "Les informations de la voiture "+selectedVoi.getMarque()+" "+selectedVoi.getModele()+" ont bien été mises à jour.", ""));
     }
     
     public Voiture getOneVoiture(String pla){

@@ -24,7 +24,7 @@
         <center><h1><font color = "blue"><u>Gestion des véhicules</u></font></h1></center>
         <p>Bonjour, #{loginBean.uname}</p>
         <br/><br/>
-        
+        <p:messages autoUpdate="true" closable="true"/>
         <h:form id="form">
             <p:dataTable id="dataTable" value="#{voitureControler.voitures}" selectionMode="single" selection="#{voitureControler.selectedVoi}"
                          widgetVar="voiTable" var="voi" rowKey="#{voi.plaque}" emptyMessage="Aucune voiture trouvée"
@@ -99,12 +99,11 @@
             </p:dialog>
         </h:form>
         <br/>
-        <p:messages autoUpdate="true"/>
         <br/>
         <h:form id="formAdd">
+            <p:growl id="growl" sticky="false" />
             <p:accordionPanel activeIndex="null">
                 <p:tab title="Ajouter un véhicule">
-                    <p:messages autoUpdate="true"/>
                     <center>
                         <h:panelGrid columns="3" cellpadding="5">
                             <h:outputLabel for="plaque" value="Plaque d'immatriculation :"/>

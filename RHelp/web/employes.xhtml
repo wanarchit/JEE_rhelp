@@ -24,6 +24,7 @@
         <center><h1><font color = "blue"><u>Gestion des employés</u></font></h1></center>
         <p>Bonjour, #{loginBean.uname}</p>
         <br/><br/>
+        <p:messages autoUpdate="true" closable="true"/>
         <h:form id="form">
             <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"
                          var="e" rowKey="#{e.numSS}" emptyMessage="Pas d'employé enregistré" rows="10"
@@ -61,7 +62,7 @@
                 </f:facet>
             </p:dataTable>
         </h:form>
-
+        
         <h:form id="formUp">
             <p:dialog id="diagUpdate" header="Modifier un employé" modal="true" widgetVar="diagUpdate" resizable="false">
                 <!--<p:messages autoUpdate="true"/>-->
@@ -106,7 +107,6 @@
             <p:growl id="growl" sticky="false" />
             <p:accordionPanel activeIndex="null">
                 <p:tab title="Ajouter un employé">
-                    <p:messages autoUpdate="true"/>
                     <center>
                         <h:panelGrid columns="3" cellpadding="5">
                             <h:outputLabel for="numSS" value="Numéro SS :"/>
