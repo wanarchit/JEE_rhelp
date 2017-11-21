@@ -21,21 +21,21 @@
                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
-                            <p:inputText id="username" value="#{loginBean.uname}" placeholder="Username"></p:inputText>
+                            <p:inputText id="username" value="#{loginBean.uname}" placeholder="Identifiant"></p:inputText>
                             <p:message for="username" ></p:message>
-                            <p:password id="password" value="#{loginBean.password}"  feedback="false" placeholder="Password"></p:password>
+                            <p:password id="password" value="#{loginBean.password}"  feedback="false" placeholder="Mot de passe"></p:password>
                             <p:message for="password"></p:message>
-                            <p:commandButton action="#{loginBean.loginProject}" value="Login" update="loginForm" ajax="true"></p:commandButton>
+                            <p:commandButton action="#{loginBean.loginProject}" value="Se connecter" update="loginForm" ajax="true"></p:commandButton>
                         </h:panelGrid>
                     </h:form>
                 </f:facet>
             </p:menubar>
             <br/>
         </h:form>
-        <center><h1><font color = "blue"><u>Bienvenue sur RHelp !</u></font></h1></center>
+        <center><h1><font face = "Calibri" color = "#A90024">Accueil</font></h1></center>
         <br/><br/>
-        <center><h3>Bonjour,</h3>
-        <h3>Vous devez vous connecter pour accéder aux différents services</h3></center>
+        <center><h2><font face = "Calibri">Bonjour,</font></h2>
+            <h2><font face = "Calibri">Vous devez vous connecter pour accéder aux différents services</font></h2></center>
         <br/><br/><br/><br/> <br/><br/><br/><br/>
         <p:separator />
             <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>

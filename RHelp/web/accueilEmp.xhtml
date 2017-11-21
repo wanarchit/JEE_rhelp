@@ -14,24 +14,37 @@
             <p:menubar>
                 <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueilEmp.xhtml" />
                 <p:menuitem value="&nbsp; Mes informations" icon="fa fa-user fa-fw" url="infoEmp.xhtml"/>
-                <p:menuitem value="&nbsp; Gérer mes réservations" icon="fa fa-car fa-fw" url="reservationEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes réservations" icon="fa fa-car fa-fw" url="reservationEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes salaires" icon="fa fa-euro fa-fw" url="accueilEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes congés" icon="fa fa-sun-o fa-fw" url="accueilEmp.xhtml"/>
                 <f:facet name="options">
-                    <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
+                    <h:outputText value="Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
+                                  #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}
+                                  #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())} &nbsp;"/>
+                    <p:commandButton action="#{loginBean.logout}" value="Se déconnecter"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
             </p:menubar>
             <br/><br/>
         </h:form>
-        
-        <center><h1><font color = "red">Accueil</font></h1>
-        <h3>Bienvenue sur l'application RHelp #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
-        #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}! </h3>
-        
-        Vous pouvez consulter et mettre à jour vos informations depuis l'onglet 'Mes informations'.<br/>
-        Vous pouvez réserver un véhicule depuis l'onglet 'Gérer mes réservations'.<br/>
-        Vous pouvez signaler le retour d'un véhicule réservé depuis l'onglet 'Gérer mes réservations'.
+
+        <center><h1><font face = "Calibri" color = "#A90024">Accueil</font></h1></center>
+
+        <center><h2><font face = "Calibri">Bienvenue sur l'application RHelp #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
+                    #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}! </font></h2></center>
+
+        <center><font face = "Calibri">
+                Vous pouvez consulter et mettre à jour vos informations depuis l'onglet 'Mes informations'.<br/>
+                Vous pouvez réserver un véhicule depuis l'onglet 'Mes réservations'.<br/>
+                Vous pouvez signaler le retour d'un véhicule réservé depuis l'onglet 'Mes réservations'.<br/>
+            </font></center>  
         <br/><br/>
-        <font color = "red"><B> <h:outputLabel value="Pensez à mettre à jour votre mot de passe provisoire!" rendered="#{loginBean.password=='rhelp'}" /> </B></font>
-        </center>
+        <center><font face = "Calibri" color = "#A90024">
+                Attention les onglets "Mes salaires" et "Mes congés" sont actuellement en maintenance.
+                <br/><br/>
+            </font></center>
+
+        <font face = "Calibri" color = "#A90024"><B> <h:outputLabel value="Pensez à mettre à jour votre mot de passe provisoire!" rendered="#{loginBean.password=='rhelp'}" /> </B></font>
+
         <br/><br/><br/><br/>
         <p:separator />
         <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>

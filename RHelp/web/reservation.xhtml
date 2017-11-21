@@ -16,14 +16,17 @@
                 <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="employes.xhtml"/>
                 <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="voitures.xhtml"/>
                 <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="reservation.xhtml"/>
+                <p:menuitem value="&nbsp; Salaires" icon="fa fa-euro fa-fw" url="accueil.xhtml"/>
+                <p:menuitem value="&nbsp; Congés" icon="fa fa-sun-o fa-fw" url="accueil.xhtml"/>
                 <f:facet name="options">
-                    <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
+                    <h:outputText value="Bonjour #{loginBean.uname} &nbsp;"/>
+                    <p:commandButton action="#{loginBean.logout}" value="Se déconnecter"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
             </p:menubar>
         </h:form>
-        <center><h1><font color = "blue"><u>Gestion des réservations</u></font></h1></center>
-        <p>Bonjour, #{loginBean.uname}</p>
-        <br/><br/>
+
+        <center><h1><font face = "Calibri" color = "#A90024">Gestion des réservations</font></h1></center>
+
         <p:messages autoUpdate="true" closable="true"/>
         <h:form id="form">
             <p:messages for="btnAnnDdeVal" id="messages1" showDetail="false" autoUpdate="true" closable="true" />
@@ -60,7 +63,7 @@
                     <p:commandButton id="btnAnnDdeVal" actionListener="#{reservationControler.cancelResaAdmin(reservationControler.selectedResa)}" 
                                      icon="ui-icon-closethick" value="Annuler une demande validée" update="dtTable"/>
                     <p:commandButton id="btnValider" actionListener="#{reservationControler.updateResaValidation(reservationControler.selectedResa)}" 
-                                    icon="ui-icon-check" value="Valider une demande ou un retour" update="dtTable"/>
+                                     icon="ui-icon-check" value="Valider une demande ou un retour" update="dtTable"/>
                 </f:facet>
             </p:dataTable>
         </h:form>
@@ -76,17 +79,17 @@
 
                             <p:outputLabel for="dateD" value="Date début :" />
                             <p:calendar id="dateD" value="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm" required="true" binding="#{dateD}">
-                            <p:ajax event="dateSelect" update="dateF" />
+                                <p:ajax event="dateSelect" update="dateF" />
                             </p:calendar>
                             <p:message for="dateD" />
 
                             <p:outputLabel for="dateF" value="Date fin :" />
                             <p:calendar id="dateF" value="#{reservations.dateF}" mindate="#{reservations.dateD}" pattern="dd/MM/yyyy HH:mm" required="true">
-                            <f:validator validatorId="dateRangeResaValidator"/>
-                            <f:attribute name="dateD" value="#{dateD}" />
-                            <f:attribute name="resa" value="#{reservationControler.reservations}" />
-                            <f:attribute name="numSS" value="#{numSS}" />
-                            <f:attribute name="plaque" value="#{plaque}" />
+                                <f:validator validatorId="dateRangeResaValidator"/>
+                                <f:attribute name="dateD" value="#{dateD}" />
+                                <f:attribute name="resa" value="#{reservationControler.reservations}" />
+                                <f:attribute name="numSS" value="#{numSS}" />
+                                <f:attribute name="plaque" value="#{plaque}" />
                             </p:calendar>
                             <p:message for="dateF" />
 

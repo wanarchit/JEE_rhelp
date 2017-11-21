@@ -16,14 +16,17 @@
                 <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="employes.xhtml"/>
                 <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="voitures.xhtml"/>
                 <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="reservation.xhtml"/>
+                <p:menuitem value="&nbsp; Salaires" icon="fa fa-euro fa-fw" url="accueil.xhtml"/>
+                <p:menuitem value="&nbsp; Congés" icon="fa fa-sun-o fa-fw" url="accueil.xhtml"/>
                 <f:facet name="options">
-                    <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
+                    <h:outputText value="Bonjour #{loginBean.uname} &nbsp;"/>
+                    <p:commandButton action="#{loginBean.logout}" value="Se déconnecter"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
             </p:menubar>
         </h:form>
-        <center><h1><font color = "blue"><u>Gestion des employés</u></font></h1></center>
-        <p>Bonjour, #{loginBean.uname}</p>
-        <br/><br/>
+
+        <center><h1><font face = "Calibri" color = "#A90024">Gestion des employés</font></h1></center>
+
         <p:messages autoUpdate="true" closable="true"/>
         <h:form id="form">
             <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"
@@ -62,7 +65,7 @@
                 </f:facet>
             </p:dataTable>
         </h:form>
-        
+
         <h:form id="formUp">
             <p:dialog id="diagUpdate" header="Modifier un employé" modal="true" widgetVar="diagUpdate" resizable="false">
                 <!--<p:messages autoUpdate="true"/>-->
@@ -154,7 +157,7 @@
         </h:form>
 
         <h:form id="formResa">
-           <p:dialog id="diagResa" header="Réservations de l'employé" modal="true" widgetVar="diagResa" resizable="false">
+            <p:dialog id="diagResa" header="Réservations de l'employé" modal="true" widgetVar="diagResa" resizable="false">
                 <p:dataTable value="#{reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS)}" var="r" >
                     <p:column headerText="Période">
                         <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
@@ -166,11 +169,11 @@
                         <h:outputText value="#{r.etat}" />
                     </p:column>
                 </p:dataTable>
-           </p:dialog>
+            </p:dialog>
         </h:form>
         <br/><br/><br/><br/>
         <p:separator />
-            <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>
+        <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>
         <p:separator />
     </h:body>
 </html>

@@ -16,14 +16,17 @@
                 <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="employes.xhtml"/>
                 <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="voitures.xhtml"/>
                 <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="reservation.xhtml"/>
+                <p:menuitem value="&nbsp; Salaires" icon="fa fa-euro fa-fw" url="accueil.xhtml"/>
+                <p:menuitem value="&nbsp; Congés" icon="fa fa-sun-o fa-fw" url="accueil.xhtml"/>
                 <f:facet name="options">
-                    <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
+                    <h:outputText value="Bonjour #{loginBean.uname} &nbsp;"/>
+                    <p:commandButton action="#{loginBean.logout}" value="Se déconnecter"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
             </p:menubar>
         </h:form>
-        <center><h1><font color = "blue"><u>Gestion des véhicules</u></font></h1></center>
-        <p>Bonjour, #{loginBean.uname}</p>
-        <br/><br/>
+
+        <center><h1><font face = "Calibri" color = "#A90024">Gestion des véhicules</font></h1></center>
+
         <p:messages autoUpdate="true" closable="true"/>
         <h:form id="form">
             <p:dataTable id="dataTable" value="#{voitureControler.voitures}" selectionMode="single" selection="#{voitureControler.selectedVoi}"
@@ -129,7 +132,7 @@
 
                             <f:facet name="footer">
                                 <center><p:commandButton icon="ui-icon-pencil" value="Ajouter" action = "#{voitureControler.addVoi(voiture)}"
-                                                          ajax="False" /></center>
+                                                         ajax="False" /></center>
                             </f:facet>
                         </h:panelGrid></center>
                 </p:tab>

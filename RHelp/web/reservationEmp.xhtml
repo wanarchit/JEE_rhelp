@@ -9,21 +9,25 @@
         <title>Les réservations</title>
     </h:head>
     <h:body>
-        <h:graphicImage value="/Images/banniere3.jpg" />
+        <center><h:graphicImage value="/Images/banniere3.jpg" /></center>
         <h:form>
             <p:menubar>
                 <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueilEmp.xhtml" />
                 <p:menuitem value="&nbsp; Mes informations" icon="fa fa-user fa-fw" url="infoEmp.xhtml"/>
-                <p:menuitem value="&nbsp; Gérer mes réservations" icon="fa fa-car fa-fw" url="reservationEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes réservations" icon="fa fa-car fa-fw" url="reservationEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes salaires" icon="fa fa-euro fa-fw" url="accueilEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes congés" icon="fa fa-sun-o fa-fw" url="accueilEmp.xhtml"/>
                 <f:facet name="options">
-                    <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
+                    <h:outputText value="Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
+                                  #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}
+                                  #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())} &nbsp;"/>
+                    <p:commandButton action="#{loginBean.logout}" value="Se déconnecter"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
             </p:menubar>
         </h:form>
-        <center><h1><font color = "blue"><u>Gestion des réservations</u></font></h1></center>
-        <p><B>Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
-        #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}</B></p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
-        <br/>
+        
+        <center><h1><font face = "Calibri" color = "#A90024">Gestion des réservations</font></h1></center>
+
         <p:messages autoUpdate="true" closable="true"/>
         <p:accordionPanel activeIndex="null">
             <p:tab title="Voir mes réservations">
@@ -31,9 +35,9 @@
                         <p:dataTable value="#{reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS)}" 
                                      selectionMode="single" selection="#{reservationControler.selectedResa}" var="r" rowKey="#{r.idResa}" emptyMessage="Pas de réservation"
                                      rows="10"
-                         paginator="true" paginatorPosition="top"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15,20">
+                                     paginator="true" paginatorPosition="top"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15,20">
                             <p:column headerText="Période">
                                 <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
                             </p:column>
@@ -97,9 +101,9 @@
                         <p:dataTable id="dtTable" value="#{reservationControler.getVoitARendreEmp(employeControler.selectedEmp.numSS)}" 
                                      selectionMode="single" selection="#{reservationControler.selectedResaRendre}" var="r" rowKey="#{r.idResa}" 
                                      emptyMessage="Pas de véhicule à rendre." rows="10"
-                         paginator="true" paginatorPosition="top"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15,20">
+                                     paginator="true" paginatorPosition="top"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15,20">
                             <p:column headerText="Période">
                                 <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
                             </p:column>
@@ -115,23 +119,23 @@
                             </f:facet>
                         </p:dataTable>
                     </h:form>
-                <h:form id="formUp">
-            <p:dialog id="diagUpdate" header="Rendre un véhicule" modal="true" widgetVar="diagUpdate" resizable="false">
-                <!--<p:messages autoUpdate="true"/>-->
-                <h:panelGrid columns="3" cellpadding="5">
-                    <p:outputLabel for="kmU" value="Nombre de kilomètres parcourus :" />
-                    <p:inputText id="kmU" value = "#{voitureControler.selectedVoi.kilometrage}">
-                        <f:convertNumber integerOnly="true"/>
-                    </p:inputText>
-                    <p:message for="kmU"/>
+                    <h:form id="formUp">
+                        <p:dialog id="diagUpdate" header="Rendre un véhicule" modal="true" widgetVar="diagUpdate" resizable="false">
+                            <!--<p:messages autoUpdate="true"/>-->
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel for="kmU" value="Nombre de kilomètres parcourus :" />
+                                <p:inputText id="kmU" value = "#{voitureControler.selectedVoi.kilometrage}">
+                                    <f:convertNumber integerOnly="true"/>
+                                </p:inputText>
+                                <p:message for="kmU"/>
 
-                    <f:facet name="footer">
-                        <center> <p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
-                                                  ajax="false"/></center>
-                    </f:facet>  
-                </h:panelGrid>
-            </p:dialog>
-        </h:form>
+                                <f:facet name="footer">
+                                    <center> <p:commandButton icon="ui-icon-circle-check" value="Valider" action="#{employeControler.updateEmp(employeControler.selectedEmp)}" 
+                                                              ajax="false"/></center>
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+                    </h:form>
                 </center>
             </p:tab>
         </p:accordionPanel>
