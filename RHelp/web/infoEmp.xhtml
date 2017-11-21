@@ -10,21 +10,25 @@
         <title>Les employés</title>
     </h:head>
     <h:body>
-        <h:graphicImage value="/Images/banniere3.jpg" />
+        <center><h:graphicImage value="/Images/banniere3.jpg" /></center>
         <h:form>
             <p:menubar>
                 <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="accueilEmp.xhtml" />
                 <p:menuitem value="&nbsp; Mes informations" icon="fa fa-user fa-fw" url="infoEmp.xhtml"/>
-                <p:menuitem value="&nbsp; Gérer mes réservations" icon="fa fa-car fa-fw" url="reservationEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes réservations" icon="fa fa-car fa-fw" url="reservationEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes salaires" icon="fa fa-euro fa-fw" url="accueilEmp.xhtml"/>
+                <p:menuitem value="&nbsp; Mes congés" icon="fa fa-sun-o fa-fw" url="accueilEmp.xhtml"/>
                 <f:facet name="options">
-                    <p:commandButton action="#{loginBean.logout}" value="Logout"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
+                    <h:outputText value="Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
+                                  #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}
+                                  #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())} &nbsp;"/>
+                    <p:commandButton action="#{loginBean.logout}" value="Se déconnecter"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
             </p:menubar>
         </h:form>
-        <center><h1><font color = "blue"><u>Mes informations personnelles</u></font></h1></center>
-        <p><B>Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
-        #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}</B></p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
-        <br/>
+
+        <center><h1><font face = "Calibri" color = "#A90024">Mes informations personnelles</font></h1></center>
+
         <p:messages autoUpdate="true" closable="true"/>
         <p:growl id="growl" sticky="false" />
         <p:tabView orientation="Right">
@@ -103,7 +107,7 @@
                 </center>
             </p:tab>
         </p:tabView>
-        <br/><br/><br/><br/>
+        <br/><br/>
         <p:separator />
         <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>
         <p:separator />
