@@ -26,7 +26,10 @@
         <br/><br/>
         <h:form id="form">
             <p:dataTable value="#{employeControler.employes}" selectionMode="single" selection="#{employeControler.selectedEmp}"
-                         var="e" rowKey="#{e.numSS}" >
+                         var="e" rowKey="#{e.numSS}" emptyMessage="Pas d'employé enregistré" rows="10"
+                         paginator="true" paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,20">
                 <p:ajax event="rowSelect" update="formUp:diagUpdate"/>
                 <p:ajax event="rowSelect" update="formResa:diagResa"/>
                 <f:facet name="header">
@@ -121,8 +124,8 @@
 
                             <p:outputLabel for="sexe" value="Sexe :" />
                             <p:selectOneRadio id="sexe" value="#{employes.sexe}">
-                                <f:selectItem itemLabel="Femme" itemValue="0" />
-                                <f:selectItem itemLabel="Homme" itemValue="1" />
+                                <f:selectItem itemLabel="Femme" itemValue="false" />
+                                <f:selectItem itemLabel="Homme" itemValue="true" />
                             </p:selectOneRadio>
                             <p:message for="sexe"/> 
 

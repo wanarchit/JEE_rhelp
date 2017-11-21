@@ -79,9 +79,22 @@ public class reservationControler implements Serializable {
         dao.remove(idR);
     }
 
+    public void cancelResaAdmin(Reservations selectResa) {
+        if (selectResa.getEtat().equals("Demande à valider") || selectResa.getEtat().equals("Demande validée")) {
+            dao.remove(selectResa.getIdResa());
+            FacesContext.getCurrentInstance().addMessage("btnRendre", new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "La demande de réservation a bien été supprimée.", ""));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Vous ne pouvez supprimer pas supprimer cette réservation car elle est en cours ou a déjà eu lieu.", ""));
+        }
+    }
+    
     public void cancelResa(Reservations selectResa) {
         if (selectResa.getEtat().equals("Demande à valider")) {
             dao.remove(selectResa.getIdResa());
+            FacesContext.getCurrentInstance().addMessage("btnRendre", new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "La réservation a bien été annulée.", ""));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Vous ne pouvez annuler qu'une demande 'A valider'. Pour une demande déjà validée, adressez vous directement à votre RH.", ""));
@@ -123,6 +136,30 @@ public class reservationControler implements Serializable {
 
     public void updateResa(Reservations resa) {
         dao.updateResa(resa);
+    }
+    
+    public void updateResaValidation(Reservations selectResa) {
+         if (selectResa != null && !selectResa.getEtat().equals("Retour validé") && !selectResa.getEtat().equals("Demande validée")) {
+            try {
+                String statut = "";
+                if (selectResa.getEtat().equals("Retour à valider")) {
+                    selectResa.setEtat("Retour validé");
+                    statut = "du retour";
+                }else if(selectResa.getEtat().equals("Demande à valider")){
+                    selectResa.setEtat("Demande validée");
+                    statut = "de la demande";
+                }
+                dao.updateResa(selectResa);
+                FacesContext.getCurrentInstance().addMessage("btnRendre", new FacesMessage(FacesMessage.SEVERITY_INFO,
+                        "La validation "+statut+" a bien été enregistrée.", ""));
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                        "Une erreur s'est produite...", ""));
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage("btnRendre", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Vous ne pouvez pas valider une demande ou un retour déjà validé", ""));
+        }
     }
 
     public void rendreVoit(Reservations selectResa) {

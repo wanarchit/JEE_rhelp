@@ -21,14 +21,19 @@
             </p:menubar>
         </h:form>
         <center><h1><font color = "blue"><u>Gestion des réservations</u></font></h1></center>
-        <p>Bonjour, #{loginBean.uname}</p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
+        <p><B>Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
+        #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}</B></p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
         <br/>
         <p:accordionPanel activeIndex="null">
             <p:tab title="Voir mes réservations">
                 <center><h:form id="visuResa">
                         <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                         <p:dataTable value="#{reservationControler.getReservationsEmp(employeControler.selectedEmp.numSS)}" 
-                                     selectionMode="single" selection="#{reservationControler.selectedResa}" var="r" rowKey="#{r.idResa}" emptyMessage="Pas de réservation">
+                                     selectionMode="single" selection="#{reservationControler.selectedResa}" var="r" rowKey="#{r.idResa}" emptyMessage="Pas de réservation"
+                                     rows="10"
+                         paginator="true" paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,20">
                             <p:column headerText="Période">
                                 <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
                             </p:column>
@@ -89,7 +94,11 @@
                 <center><h:form id="formRendre">
                         <p:messages for="btnRendre" id="messages" showDetail="false" autoUpdate="true" closable="true" />
                         <p:dataTable id="dtTable" value="#{reservationControler.getVoitARendreEmp(employeControler.selectedEmp.numSS)}" 
-                                     selectionMode="single" selection="#{reservationControler.selectedResaRendre}" var="r" rowKey="#{r.idResa}" emptyMessage="Pas de véhicule à rendre." >
+                                     selectionMode="single" selection="#{reservationControler.selectedResaRendre}" var="r" rowKey="#{r.idResa}" 
+                                     emptyMessage="Pas de véhicule à rendre." rows="10"
+                         paginator="true" paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,20">
                             <p:column headerText="Période">
                                 <h:outputText value="Du #{r.displayDateD(r.dateD)} Au #{r.displayDateF(r.dateF)}" escape="false"/>
                             </p:column>

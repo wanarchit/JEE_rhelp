@@ -11,15 +11,16 @@
     <h:body>
         <center><h:graphicImage value="/Images/banniere3.jpg" /></center>
         <h:form>
+            <p:messages id="messages" showDetail="True" autoUpdate="true" closable="true" />
             <p:menubar widgetVar="Blitzer">
-                <p:menuitem value="&nbsp; Accueil" icon="fa fa-home fa-fw" url="faces/accueil.xhtml" />
-                <p:menuitem value="&nbsp; Employés" icon="fa fa-user fa-fw" url="faces/employes.xhtml"/>
-                <p:menuitem value="&nbsp; Véhicules" icon="fa fa-car fa-fw" url="faces/voitures.xhtml"/>
-                <p:menuitem value="&nbsp; Réservations" icon="fa fa-calendar fa-fw" url="faces/reservation.xhtml"/>
                 <f:facet name="options">
                     <h:form id="loginForm">          
-                        <p:growl id="msg" showDetail="true" life="3000" />
                         <h:panelGrid id="loginPanel" columns="6">
+                            <p:outputLabel for="username" value ="Entrez vos informations de connexion :
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
                             <p:inputText id="username" value="#{loginBean.uname}" placeholder="Username"></p:inputText>
                             <p:message for="username" ></p:message>
                             <p:password id="password" value="#{loginBean.password}"  feedback="false" placeholder="Password"></p:password>
@@ -33,7 +34,8 @@
         </h:form>
         <center><h1><font color = "blue"><u>Bienvenue sur RHelp !</u></font></h1></center>
         <br/><br/>
-
+        <center><h3>Bonjour,</h3>
+        <h3>Vous devez vous connecter pour accéder aux différents services</h3></center>
         <br/><br/><br/><br/> <br/><br/><br/><br/>
         <p:separator />
             <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>

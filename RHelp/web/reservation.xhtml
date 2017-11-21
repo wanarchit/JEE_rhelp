@@ -25,8 +25,13 @@
         <p>Bonjour, #{loginBean.uname}</p>
         <br/><br/>
         <h:form id="form">
-            <p:dataTable value="#{reservationControler.reservations}" selectionMode="single" selection="#{reservationControler.selectedResa}"
-                         var="resa" rowKey="#{resa.idResa}" >
+            <p:messages for="btnAnnDdeVal" id="messages1" showDetail="false" autoUpdate="true" closable="true" />
+            <p:messages for="btnValider" id="messages2" showDetail="false" autoUpdate="true" closable="true" />
+            <p:dataTable id="dtTable" value="#{reservationControler.reservations}" selectionMode="single" selection="#{reservationControler.selectedResa}"
+                         widgetVar="resaTable" var="resa" rowKey="#{resa.idResa}" emptyMessage="Pas de réservation enregistrée" rows="10"
+                         paginator="true" paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,20">
                 <!--<p:ajax event="rowSelect" update="formUp:diagUpdate"/>-->
                 <f:facet name="header">
                     Liste des reservations
@@ -40,14 +45,27 @@
                 <p:column headerText="Véhicule">
                     <h:outputText value="#{resa.plaque.marque} #{resa.plaque.modele}" />
                 </p:column>
-                <p:column headerText="Etat de la demande">
+                <p:column headerText="Etat de la demande" filterBy="#{resa.getEtatValidation()}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:selectOneButton onchange="PF('resaTable').filter()">
+                            <f:selectItem itemLabel="All" itemValue="" />
+                            <f:selectItem itemLabel="Validée" itemValue="Validé" />
+                            <f:selectItem itemLabel="A Valider" itemValue="A valider" />
+                        </p:selectOneButton>
+                    </f:facet>
                     <h:outputText value="#{resa.etat}" />
                 </p:column>
+                <f:facet name="footer">
+                    <p:commandButton id="btnAnnDdeVal" actionListener="#{reservationControler.cancelResaAdmin(reservationControler.selectedResa)}" 
+                                     icon="ui-icon-closethick" value="Annuler une demande validée" update="dtTable"/>
+                    <p:commandButton id="btnValider" actionListener="#{reservationControler.updateResaValidation(reservationControler.selectedResa)}" 
+                                    icon="ui-icon-check" value="Valider une demande ou un retour" update="dtTable"/>
+                </f:facet>
             </p:dataTable>
         </h:form>
 
         <br/>
-        <p:messages autoUpdate="true"/>
+        <p:messages autoUpdate="true" closable="true"/>
         <br/>
         <h:form id="formAdd">
             <a name="anchor1"/>
@@ -97,5 +115,3 @@
         <p:separator />
     </h:body>
 </html>
-
-<!--filter="true" filterMatchMode="contains"-->

@@ -26,8 +26,12 @@
         <br/><br/>
         
         <h:form id="form">
-            <p:dataTable value="#{voitureControler.voitures}" selectionMode="single" selection="#{voitureControler.selectedVoi}"
-                         widgetVar="voiTable" var="voi" rowKey="#{voi.plaque}">
+            <p:dataTable id="dataTable" value="#{voitureControler.voitures}" selectionMode="single" selection="#{voitureControler.selectedVoi}"
+                         widgetVar="voiTable" var="voi" rowKey="#{voi.plaque}" emptyMessage="Aucune voiture trouvée"
+                         rows="10" paginatorPosition="top"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15,20">
                 <p:ajax event="rowSelect" update="formUp:diagUpdate"/>
                 <f:facet name="header">
                     Liste des véhicules
@@ -41,13 +45,13 @@
                 <p:column headerText="Kilométrage">
                     <h:outputText value="#{voi.kilometrage}" />
                 </p:column>
-                <p:column headerText="Disponible" filterBy="#{voi.disponibilite}" filterMatchMode="equals">
+                <p:column headerText="Disponibilité" filterBy="#{voi.disponibilite}" filterMatchMode="equals">
                     <f:facet name="filter">
                         <p:selectOneButton onchange="PF('voiTable').filter()">
                             <f:converter converterId="javax.faces.Boolean" />
                             <f:selectItem itemLabel="All" itemValue="" />
-                            <f:selectItem itemLabel="Dispo" itemValue="true" />
-                            <f:selectItem itemLabel="Non dispo" itemValue="false" />
+                            <f:selectItem itemLabel="D" itemValue="true" />
+                            <f:selectItem itemLabel="ND" itemValue="false" />
                         </p:selectOneButton>
                     </f:facet>
                     <h:outputText value="#{voi.displayDispo(voi.disponibilite)}" />
@@ -100,6 +104,7 @@
         <h:form id="formAdd">
             <p:accordionPanel activeIndex="null">
                 <p:tab title="Ajouter un véhicule">
+                    <p:messages autoUpdate="true"/>
                     <center>
                         <h:panelGrid columns="3" cellpadding="5">
                             <h:outputLabel for="plaque" value="Plaque d'immatriculation :"/>
@@ -124,7 +129,8 @@
                             <p:message for="date" />                        
 
                             <f:facet name="footer">
-                                <center><p:commandButton icon="ui-icon-pencil" ajax = "False" value="Ajouter" action = "#{voitureControler.addVoi(voiture)}"/></center>
+                                <center><p:commandButton icon="ui-icon-pencil" value="Ajouter" action = "#{voitureControler.addVoi(voiture)}"
+                                                          ajax="False" /></center>
                             </f:facet>
                         </h:panelGrid></center>
                 </p:tab>

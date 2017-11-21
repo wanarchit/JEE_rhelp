@@ -123,6 +123,14 @@ public class Reservations implements Serializable {
         return etat;
     }
 
+    public String getEtatValidation(){
+        if (this.etat.equals("Retour validé") || this.etat.equals("Demande validée")) {
+            return("Validé");
+        } else {
+            return("A valider");
+        }
+    }
+    
     public void setEtat(String etat) {
         this.etat = etat;
     }

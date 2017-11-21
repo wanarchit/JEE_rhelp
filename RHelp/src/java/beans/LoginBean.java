@@ -64,9 +64,9 @@ public class LoginBean implements Serializable {
         } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Invalid Login!",
-                    "Please Try Again!"));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Identifiant et/ou mot de passe invalide(s)!",
+                    "Essayer à nouveau!"));
             return "login";
         }
     }

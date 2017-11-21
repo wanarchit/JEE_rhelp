@@ -22,14 +22,16 @@
             <br/><br/>
         </h:form>
         
-        <center><h1><font color = "red">Accueil</font></h1></center>
+        <center><h1><font color = "red">Accueil</font></h1>
+        <h3>Bienvenue sur l'application RHelp #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
+        #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}! </h3>
+        
+        Vous pouvez consulter et mettre à jour vos informations depuis l'onglet 'Mes informations'.<br/>
+        Vous pouvez réserver un véhicule depuis l'onglet 'Gérer mes réservations'.<br/>
+        Vous pouvez signaler le retour d'un véhicule réservé depuis l'onglet 'Gérer mes réservations'.
         <br/><br/>
-        Bienvenue sur l'application RHelp ! 
-        <br/>     
-        <p>Bonjour #{loginBean.uname}</p>
-        Mettez à jour vos informations.
-        
-        
+        <font color = "red"><B> <h:outputLabel value="Pensez à mettre à jour votre mot de passe provisoire!" rendered="#{loginBean.password=='rhelp'}" /> </B></font>
+        </center>
         <br/><br/><br/><br/>
         <p:separator />
         <center><h:graphicImage value="/Images/RHfooter.jpg" /></center>

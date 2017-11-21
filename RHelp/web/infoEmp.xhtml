@@ -22,7 +22,8 @@
             </p:menubar>
         </h:form>
         <center><h1><font color = "blue"><u>Mes informations personnelles</u></font></h1></center>
-        <p>Bonjour, #{loginBean.uname}</p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
+        <p><B>Bonjour #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().prenom}
+        #{userInfoControler.getUserConnecte(loginBean.uname).getNumSS().nom}</B></p> #{employeControler.setSelectedEmp(userInfoControler.getUserConnecte(loginBean.uname).getNumSS())}
         <br/>
         <p:growl id="growl" sticky="false" />
         <p:tabView orientation="Right">
