@@ -20,14 +20,14 @@
                 <p:menuitem value="&nbsp; Congés" icon="fa fa-sun-o fa-fw" url="accueil.xhtml"/>
                 <f:facet name="options">
                     <h:outputText value="Bonjour #{loginBean.uname} &nbsp;"/>
-                    
+
                     <p:commandButton action="#{loginBean.logout}" value="Se déconnecter"  ajax="false" icon="ui-icon-extlink"></p:commandButton>
                 </f:facet>
             </p:menubar>
         </h:form>
-        
+
         <center><h1><font face = "Calibri" color = "#A90024">Accueil</font></h1></center>
-        
+
         <h:form>
             <p:fieldset legend="Tableau de bord" style="margin-bottom:20px">
                 <p:panelGrid styleClass="ui-noborder">
@@ -46,7 +46,7 @@
                                 <f:facet name="header">
                                     Liste des voitures à réviser prochainement
                                 </f:facet>
-                                #{v.marque} #{v.modele}, #{v.plaque}
+                                <h:outputText value="#{v.marque} #{v.modele}, #{v.plaque} #{voitureControler.getAVAPRevis(v)}" escape = "false"/>
                             </p:dataList>
                         </p:column>
                     </p:row>
