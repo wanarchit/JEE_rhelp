@@ -126,6 +126,7 @@ public class Voiture implements Serializable {
     public Date getDateRevision() {
         return dateRevision;
     }
+    
 
     public void setDateRevision(Date dateRevision) {
         this.dateRevision = dateRevision;
